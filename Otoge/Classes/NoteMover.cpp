@@ -11,16 +11,14 @@
 
 USING_NS_CC;
 
-NoteMover::NoteMover(int speed){
-    setSpeed(speed);
+NoteMover* NoteMover::instance = new NoteMover();   //  staticにインスタンスを保存
+
+NoteMover::NoteMover(){
+    speed = 2;
 }
 
-void NoteMover::setSpeed(int speed){
-    auto move = MoveBy::create(speed, Vec2(0, -this->windowHeight + protocol::lineHeight));
-    auto fading_move = Spawn::create(MoveBy::create(speed * 2.0, Vec2(0, -protocol::lineHeight / 2)),
-                                     FadeOut::create(speed * 2.0), nullptr);
-    
-    this->noteSequence = Sequence::create(move, fading_move, nullptr);
+NoteMover* NoteMover::getInstance(){
+    return instance;
 }
 
 void NoteMover::flowNote(Sprite* note, int location, Layer* layer){

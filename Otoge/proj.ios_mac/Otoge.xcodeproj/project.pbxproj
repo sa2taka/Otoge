@@ -62,7 +62,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
-		D34956D01E0CE823004EC582 /* NoteMover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956CE1E0CE823004EC582 /* NoteMover.cpp */; };
+		D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */; };
 		D3FB9C581E0C19EC005D0D49 /* mainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3FB9C561E0C19EC005D0D49 /* mainScene.cpp */; };
 		D3FB9C5F1E0C2752005D0D49 /* img in Resources */ = {isa = PBXBuildFile; fileRef = D3FB9C5E1E0C2752005D0D49 /* img */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
@@ -165,9 +165,9 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D34956CE1E0CE823004EC582 /* NoteMover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteMover.cpp; sourceTree = "<group>"; };
-		D34956CF1E0CE823004EC582 /* NoteMover.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NoteMover.hpp; sourceTree = "<group>"; };
 		D34956D21E0CFC67004EC582 /* gameProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameProtocol.h; sourceTree = "<group>"; };
+		D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteDirector.cpp; sourceTree = "<group>"; };
+		D34956D41E0D5AE3004EC582 /* NoteDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NoteDirector.hpp; sourceTree = "<group>"; };
 		D3FB9C561E0C19EC005D0D49 /* mainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainScene.cpp; sourceTree = "<group>"; };
 		D3FB9C571E0C19EC005D0D49 /* mainScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mainScene.hpp; sourceTree = "<group>"; };
 		D3FB9C5E1E0C2752005D0D49 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; path = img; sourceTree = "<group>"; };
@@ -319,8 +319,8 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				D3FB9C561E0C19EC005D0D49 /* mainScene.cpp */,
 				D3FB9C571E0C19EC005D0D49 /* mainScene.hpp */,
-				D34956CE1E0CE823004EC582 /* NoteMover.cpp */,
-				D34956CF1E0CE823004EC582 /* NoteMover.hpp */,
+				D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */,
+				D34956D41E0D5AE3004EC582 /* NoteDirector.hpp */,
 				D34956D21E0CFC67004EC582 /* gameProtocol.h */,
 			);
 			name = Classes;
@@ -529,9 +529,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */,
 				D3FB9C581E0C19EC005D0D49 /* mainScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
-				D34956D01E0CE823004EC582 /* NoteMover.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);

@@ -7,7 +7,6 @@
 //
 
 #include "mainScene.hpp"
-#include "NoteMover.hpp"
 
 USING_NS_CC;
 
@@ -34,11 +33,15 @@ bool MainScene::init()
     {
         return false;
     }
-    NoteMover noteMover = NoteMover(2);
+    this->scheduleUpdate();
     
-    auto blue_note = SpriteBatchNode::create("img/blue_note.png");
+    blueNote = SpriteBatchNode::create("img/blue_note.png");
+    noteDirector->setSpeed(2);
     
-    noteMover.flowNote(Sprite::createWithTexture(blue_note->getTexture()), 2, this);
-    noteMover.flowNote(Sprite::createWithTexture(blue_note->getTexture()), 4, this);
+    
     return true;
+}
+
+void MainScene::update(float delta){
+    noteDirector->updateNotes();
 }

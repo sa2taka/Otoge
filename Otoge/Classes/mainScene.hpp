@@ -9,8 +9,8 @@
 #ifndef mainScene_hpp
 #define mainScene_hpp
 
-
 #include "cocos2d.h"
+#include "NoteDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -23,7 +23,11 @@ public:
     CREATE_FUNC(MainScene);
     
 private:
+    int count;
+    cocos2d::SpriteBatchNode* blueNote;
+    NoteDirector* noteDirector = NoteDirector::getInstance();
     
+    void update(float delta);
 };
 
 #endif /* mainScene_hpp */

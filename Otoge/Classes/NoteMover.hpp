@@ -9,31 +9,30 @@
 #ifndef NoteMover_hpp
 #define NoteMover_hpp
 
-#include <cocos2d.h>
+#include "cocos2d.h"
 
 class NoteMover{
 public:
-    enum class NoteColor{
-        Red,
-        Blue,
-        Purple
-    };
-    
-    /**
-    コンストラクタ(上から下まで流れる秒数)
-     */
-    NoteMover(int);
+    //  インスタンスの取得
+    static NoteMover* getInstance();
     
     //  速さの変更
-    void setSpeed(int);
+    void setSpeed(int speed);
     
     // ノートを流す
-    void flowNote(cocos2d::Sprite*, int, cocos2d::Layer*);
+    void flowNote(cocos2d::Sprite* note, int location, cocos2d::Layer* layer);
     
 private:
+    static NoteMover* instance;
+    
     float speed;
     float windowHeight = cocos2d::Director::getInstance()->getWinSize().height;
     cocos2d::Sequence* noteSequence;
+    
+    /**
+     コンストラクタ
+     */
+    NoteMover();
 };
 
 #endif /* NoteMover_hpp */
