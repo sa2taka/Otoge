@@ -24,8 +24,7 @@ public:
     
 private:
     int count;
-    cocos2d::SpriteBatchNode* blueNote;
-    NoteDirector* noteDirector = NoteDirector::getInstance();
+    NoteDirector* noteDirector;
     
     void update(float delta);
 };

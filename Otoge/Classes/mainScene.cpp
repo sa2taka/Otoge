@@ -6,7 +6,7 @@
 //
 //
 
-#include "mainScene.hpp"
+#include "MainScene.hpp"
 
 USING_NS_CC;
 
@@ -34,8 +34,14 @@ bool MainScene::init()
         return false;
     }
     this->scheduleUpdate();
+    noteDirector = NoteDirector::getInstance();
     
-    blueNote = SpriteBatchNode::create("img/blue_note.png");
+    auto blueNote = SpriteBatchNode::create("img/blue_note.png");
+    auto redNote = SpriteBatchNode::create("img/red_note.png");
+    auto purpleNote = SpriteBatchNode::create("img/purple_note.png");
+    
+    noteDirector->setNoteSprite(blueNote, redNote, purpleNote);
+    
     noteDirector->setSpeed(2);
     
     

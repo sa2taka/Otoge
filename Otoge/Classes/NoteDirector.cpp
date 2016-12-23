@@ -7,15 +7,16 @@
 //
 
 #include "NoteDirector.hpp"
-#include "gameProtocol.h"
+#include "GameProtocol.hpp"
 
 USING_NS_CC;
 
-NoteDirector* NoteDirector::instance = new NoteDirector();
+NoteDirector *NoteDirector::instance = new NoteDirector();
 
 NoteDirector::NoteDirector(){
+    note = new Note();
     notesLocation.push_back(2);
-    notesColor.push_back('r');
+    notesColor.push_back('b');
     count = 0;
 }
 
@@ -28,17 +29,42 @@ NoteDirector* NoteDirector::getInstance(){
  */
 void NoteDirector::setSpeed(float speed){
     //  cocos2dxはデフォルトで60FPS
-    beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - protocol::lineHeight) / (60 * speed)));
-    afterMove = MoveBy::create(speed, Vec2(0, (-protocol::lineHeight) / (60 * speed)));
+    beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::getInstance()->lineHeight) / (60 * speed)));
+    afterMove = MoveBy::create(speed, Vec2(0, GameProtocol::getInstance()->lineHeight / (60 * speed)));
     this->speed = speed;
+}
+
+void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
+                                 cocos2d::SpriteBatchNode* redNote,
+                                 cocos2d::SpriteBatchNode* purpleNote){
+    note->setNoteSprite(blueNote, redNote, purpleNote);
 }
 
 /**
  呼ばれる度にノートを一回分動かす操作
  */
 void NoteDirector::updateNotes(){
-    if(notesLocation.size() + (60 * speed)  > count){
-        log("update:count = %d", count);
+    if(notesLocation.size() + (60 * speed * 2)  > count){
+        for(int i  = -(60 * speed);i < (60 * speed);i++){
+            int nowIndex = count + i + (60 * speed);
+            if(nowIndex >= 0 && nowIndex < notesLocation.size()){
+                float winHeight = Director::getInstance()->getWinSize().height;
+                float nowHeight;
+                MoveBy* nowMove;
+                if(i < 0){
+                    nowHeight = (winHeight - GameProtocol::getInstance()->lineHeight) / (60 * speed / -i);
+                    nowMove = beforeMove;
+                }
+                else{
+                    nowHeight = GameProtocol::getInstance()->lineHeight / (60 * speed / i);
+                    nowMove = afterMove;
+                }
+                log("%f", nowHeight);
+                note->flowNote(notesColor[nowIndex],
+                                    Vec2((notesLocation[nowIndex] - 1) * (45 / 2), nowHeight),
+                                    nowMove);
+            }
+        }
         count++;
     }
 }
