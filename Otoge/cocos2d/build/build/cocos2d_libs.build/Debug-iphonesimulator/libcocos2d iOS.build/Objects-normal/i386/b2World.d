@@ -1,0 +1,30 @@
+dependencies: \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/Box2D/Dynamics/b2World.cpp \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2World.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2Math.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2Settings.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2BlockAllocator.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2StackAllocator.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2ContactManager.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/b2BroadPhase.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/b2Collision.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/b2DynamicTree.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2GrowableStack.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2WorldCallbacks.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2TimeStep.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2Body.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/Shapes/b2Shape.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2Fixture.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/b2Island.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/Joints/b2PulleyJoint.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/Joints/b2Joint.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/Contacts/b2Contact.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Dynamics/Contacts/b2ContactSolver.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/Shapes/b2CircleShape.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/Shapes/b2EdgeShape.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/Shapes/b2ChainShape.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/Shapes/b2PolygonShape.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/b2TimeOfImpact.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Collision/b2Distance.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2Draw.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/Box2D/Common/b2Timer.h

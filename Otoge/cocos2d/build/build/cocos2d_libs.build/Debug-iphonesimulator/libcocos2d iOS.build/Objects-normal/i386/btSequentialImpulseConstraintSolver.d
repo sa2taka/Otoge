@@ -1,0 +1,28 @@
+dependencies: \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletDynamics/ConstraintSolver/btTypedConstraint.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btScalar.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/bullet/BulletDynamics/ConstraintSolver/btSolverConstraint.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btVector3.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btMinMax.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btAlignedAllocator.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btMatrix3x3.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btQuaternion.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btQuadWord.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/bullet/BulletDynamics/ConstraintSolver/btJacobianEntry.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btAlignedObjectArray.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/external/bullet/BulletDynamics/ConstraintSolver/btSolverBody.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btTransformUtil.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btTransform.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletDynamics/Dynamics/btRigidBody.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletCollision//BroadphaseCollision/btBroadphaseProxy.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletCollision//CollisionDispatch/btCollisionObject.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btMotionState.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletDynamics/ConstraintSolver/btContactSolverInfo.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletCollision//NarrowPhaseCollision/btManifoldPoint.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletDynamics/ConstraintSolver/btConstraintSolver.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/BulletCollision//NarrowPhaseCollision/btPersistentManifold.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btIDebugDraw.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btStackAlloc.h \
+  /Users/sat1/Documents/Otoge/Otoge/cocos2d/build/../external/bullet/LinearMath/btQuickprof.h
