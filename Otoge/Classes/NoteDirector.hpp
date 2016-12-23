@@ -27,6 +27,7 @@ private:
     cocos2d::MoveBy* afterMove;
     
     int count;
+    float speed;
     
     NoteDirector();
     

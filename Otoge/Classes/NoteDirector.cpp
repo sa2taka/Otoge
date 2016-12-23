@@ -30,17 +30,15 @@ void NoteDirector::setSpeed(float speed){
     //  cocos2dxはデフォルトで60FPS
     beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - protocol::lineHeight) / (60 * speed)));
     afterMove = MoveBy::create(speed, Vec2(0, (-protocol::lineHeight) / (60 * speed)));
+    this->speed = speed;
 }
 
 /**
  呼ばれる度にノートを一回分動かす操作
  */
 void NoteDirector::updateNotes(){
-    log("update:count = %d", count);
-    count++;
-    if(notesLocation.size() <= count){
-        log("end");
-        Director::getInstance()->end();
-        exit(0);
+    if(notesLocation.size() + (60 * speed)  > count){
+        log("update:count = %d", count);
+        count++;
     }
 }
