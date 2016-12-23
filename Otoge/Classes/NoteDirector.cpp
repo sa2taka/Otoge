@@ -14,7 +14,6 @@ USING_NS_CC;
 NoteDirector *NoteDirector::instance = new NoteDirector();
 
 NoteDirector::NoteDirector(){
-    note = new Note();
     notesLocation.push_back(2);
     notesColor.push_back('b');
     count = 0;
@@ -37,7 +36,9 @@ void NoteDirector::setSpeed(float speed){
 void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
                                  cocos2d::SpriteBatchNode* redNote,
                                  cocos2d::SpriteBatchNode* purpleNote){
-    note->setNoteSprite(blueNote, redNote, purpleNote);
+    this->blueNote = blueNote;
+    this->redNote = redNote;
+    this->purpleNote = purpleNote;
 }
 
 /**
@@ -46,25 +47,23 @@ void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
 void NoteDirector::updateNotes(){
     if(notesLocation.size() + (60 * speed * 2)  > count){
         for(int i  = -(60 * speed);i < (60 * speed);i++){
-            int nowIndex = count + i + (60 * speed);
+            int nowIndex = count + i - (60 * speed);
             if(nowIndex >= 0 && nowIndex < notesLocation.size()){
                 float winHeight = Director::getInstance()->getWinSize().height;
                 float nowHeight;
                 MoveBy* nowMove;
-                if(i < 0){
-                    nowHeight = (winHeight - GameProtocol::getInstance()->lineHeight) / (60 * speed / -i);
+                if(i >= 0){
+                    nowHeight = GameProtocol::getInstance()->lineHeight + winHeight * (i / (60 * speed));
                     nowMove = beforeMove;
                 }
                 else{
-                    nowHeight = GameProtocol::getInstance()->lineHeight / (60 * speed / i);
+                    nowHeight = GameProtocol::getInstance()->lineHeight -  GameProtocol::getInstance()->lineHeight * -i / (60 * speed);
                     nowMove = afterMove;
                 }
-                log("%f", nowHeight);
-                note->flowNote(notesColor[nowIndex],
-                                    Vec2((notesLocation[nowIndex] - 1) * (45 / 2), nowHeight),
-                                    nowMove);
+                log("%d: %f", i, nowHeight);
             }
         }
         count++;
     }
 }
+

@@ -63,7 +63,6 @@
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
 		D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */; };
-		D34956E01E0D7FF6004EC582 /* Note.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956DE1E0D7FF6004EC582 /* Note.cpp */; };
 		D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E11E0D83C7004EC582 /* MainScene.cpp */; };
 		D34956E61E0D8565004EC582 /* GameProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E51E0D8565004EC582 /* GameProtocol.cpp */; };
 		D3FB9C5F1E0C2752005D0D49 /* img in Resources */ = {isa = PBXBuildFile; fileRef = D3FB9C5E1E0C2752005D0D49 /* img */; };
@@ -169,8 +168,6 @@
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NoteDirector.cpp; sourceTree = "<group>"; };
 		D34956D41E0D5AE3004EC582 /* NoteDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NoteDirector.hpp; sourceTree = "<group>"; };
-		D34956DE1E0D7FF6004EC582 /* Note.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Note.cpp; sourceTree = "<group>"; };
-		D34956DF1E0D7FF6004EC582 /* Note.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Note.hpp; sourceTree = "<group>"; };
 		D34956E11E0D83C7004EC582 /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainScene.cpp; sourceTree = "<group>"; };
 		D34956E21E0D83C7004EC582 /* MainScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainScene.hpp; sourceTree = "<group>"; };
 		D34956E41E0D83DE004EC582 /* GameProtocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameProtocol.hpp; sourceTree = "<group>"; };
@@ -324,8 +321,6 @@
 				D34956E51E0D8565004EC582 /* GameProtocol.cpp */,
 				D34956E11E0D83C7004EC582 /* MainScene.cpp */,
 				D34956E21E0D83C7004EC582 /* MainScene.hpp */,
-				D34956DE1E0D7FF6004EC582 /* Note.cpp */,
-				D34956DF1E0D7FF6004EC582 /* Note.hpp */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */,
@@ -537,7 +532,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				D34956E01E0D7FF6004EC582 /* Note.cpp in Sources */,
 				D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */,

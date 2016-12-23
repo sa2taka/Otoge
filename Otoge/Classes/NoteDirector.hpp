@@ -10,7 +10,6 @@
 #define NoteDirector_hpp
 
 #include "cocos2d.h"
-#include "Note.hpp"
 
 class NoteDirector{
 public:
@@ -23,13 +22,16 @@ public:
     
 private:
     static NoteDirector* instance;
-    Note *note;
     
     std::vector<int>  notesLocation;
     std::vector<char> notesColor;
     
     cocos2d::MoveBy* beforeMove;
     cocos2d::MoveBy* afterMove;
+    
+    cocos2d::SpriteBatchNode* blueNote;
+    cocos2d::SpriteBatchNode* redNote;
+    cocos2d::SpriteBatchNode* purpleNote;
     
     int count;
     float speed;
