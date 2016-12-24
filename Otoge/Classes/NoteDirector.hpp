@@ -18,25 +18,28 @@ public:
     void setSpeed(float speed);
     void setNoteSprite(cocos2d::SpriteBatchNode* blueNote, cocos2d::SpriteBatchNode* redNote, cocos2d::SpriteBatchNode* purpleNote);
     
+    void loadList(std::string filename);
+    
     void updateNotes();
     
 private:
     static NoteDirector* instance;
     
-    std::vector<int>  notesLocation;
-    std::vector<char> notesColor;
+    std::vector<cocos2d::Sprite *>  notes;
     
-    cocos2d::MoveBy* beforeMove;
-    cocos2d::MoveBy* afterMove;
+    cocos2d::Sequence *noteSequence;
     
-    cocos2d::SpriteBatchNode* blueNote;
-    cocos2d::SpriteBatchNode* redNote;
-    cocos2d::SpriteBatchNode* purpleNote;
+    cocos2d::SpriteBatchNode *blueNote;
+    cocos2d::SpriteBatchNode *redNote;
+    cocos2d::SpriteBatchNode *purpleNote;
     
     int count;
     float speed;
     
     NoteDirector();
+
+    cocos2d::Sprite *getSpriteFromColor(char color);
     
+    void flowNote(cocos2d::Sprite *note, cocos2d::Action *move);
 };
 #endif /* NoteDirector_hpp */

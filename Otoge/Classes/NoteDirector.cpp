@@ -11,28 +11,43 @@
 
 USING_NS_CC;
 
+/***
+ コンストラクタ系列
+ */
 NoteDirector *NoteDirector::instance = new NoteDirector();
 
 NoteDirector::NoteDirector(){
-    notesLocation.push_back(2);
-    notesColor.push_back('b');
     count = 0;
 }
 
+/***
+ public
+ */
+
+/**
+ インスタンスの取得
+ */
 NoteDirector* NoteDirector::getInstance(){
-     return instance;
+    return instance;
 }
 
 /**
- 引数をもとに、1フレームでどれだけ進むかを設定する
+ 引数をもとに、動きを設定する
  */
 void NoteDirector::setSpeed(float speed){
-    //  cocos2dxはデフォルトで60FPS
-    beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::getInstance()->lineHeight) / (60 * speed)));
-    afterMove = MoveBy::create(speed, Vec2(0, GameProtocol::getInstance()->lineHeight / (60 * speed)));
     this->speed = speed;
+    
+    //  cocos2dxはデフォルトで60FPS
+    MoveBy *beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::getInstance()->lineHeight)));
+    MoveBy *afterMove = MoveBy::create(speed, Vec2(0, -GameProtocol::getInstance()->lineHeight) / 2);
+    FadeOut *afterFade = FadeOut::create(speed);
+    Spawn *afterSpawn = Spawn::create(afterMove, afterFade, nullptr);
+    noteSequence = Sequence::create(beforeMove, afterSpawn, nullptr);
 }
 
+/**
+ 各ノーツの設定
+ */
 void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
                                  cocos2d::SpriteBatchNode* redNote,
                                  cocos2d::SpriteBatchNode* purpleNote){
@@ -42,28 +57,51 @@ void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
 }
 
 /**
+ 譜面の読み込み
+ */
+void NoteDirector::loadList(std::string filename){
+    notes.push_back(getSpriteFromColor('b'));
+    notes[0]->setPosition(2 * (notes[0]->getContentSize().width / 4 + GameProtocol::getInstance()->padding),
+                         Director::getInstance()->getWinSize().height);
+    blueNote->addChild(notes[0]);
+    
+}
+
+/**
  呼ばれる度にノートを一回分動かす操作
  */
 void NoteDirector::updateNotes(){
-    if(notesLocation.size() + (60 * speed * 2)  > count){
-        for(int i  = -(60 * speed);i < (60 * speed);i++){
-            int nowIndex = count + i - (60 * speed);
-            if(nowIndex >= 0 && nowIndex < notesLocation.size()){
-                float winHeight = Director::getInstance()->getWinSize().height;
-                float nowHeight;
-                MoveBy* nowMove;
-                if(i >= 0){
-                    nowHeight = GameProtocol::getInstance()->lineHeight + winHeight * (i / (60 * speed));
-                    nowMove = beforeMove;
-                }
-                else{
-                    nowHeight = GameProtocol::getInstance()->lineHeight -  GameProtocol::getInstance()->lineHeight * -i / (60 * speed);
-                    nowMove = afterMove;
-                }
-                log("%d: %f", i, nowHeight);
-            }
+    if(notes.size() + (60 * speed * 2)  > count){
+        //  ノートの生成
+        if(count >= 0 && count < notes.size() && notes[count] != nullptr){
+            //  何故かこうするとうまくいく
+            auto tempSequence = noteSequence->clone();
+            notes[count]->runAction(tempSequence);
+            noteSequence = tempSequence;
         }
-        count++;
+        int temp = count - (60 * speed * 2);
+        //  ノートの削除
+        if(temp >= 0 && temp <= notes.size() && notes[temp] != nullptr){
+            notes[temp]->getParent()->removeChild(notes[temp]);
+        }
     }
+    count++;
 }
+
+/***
+ private関数
+ */
+
+/**
+ char型で示した色からスプライトを取得する
+ */
+Sprite *NoteDirector::getSpriteFromColor(char color){
+    switch(color){
+        case 'b' : return Sprite::createWithTexture(blueNote->getTexture());
+        case 'r' : return Sprite::createWithTexture(redNote->getTexture());
+        case 'p' : return Sprite::createWithTexture(purpleNote->getTexture());
+    }
+    return nullptr;
+}
+
 

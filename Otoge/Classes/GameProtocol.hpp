@@ -13,6 +13,7 @@ class GameProtocol{
 public:
     static GameProtocol *getInstance();
     float lineHeight;
+    float padding;
     
 private:
     static GameProtocol *instance;

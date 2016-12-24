@@ -41,6 +41,11 @@ bool MainScene::init()
     auto purpleNote = SpriteBatchNode::create("img/purple_note.png");
     
     noteDirector->setNoteSprite(blueNote, redNote, purpleNote);
+    noteDirector->loadList("hogehoge");
+    
+    this->addChild(blueNote);
+    this->addChild(redNote);
+    this->addChild(purpleNote);
     
     noteDirector->setSpeed(2);
     

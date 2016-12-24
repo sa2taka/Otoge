@@ -12,6 +12,7 @@ GameProtocol *GameProtocol::instance = new GameProtocol();
 
 GameProtocol::GameProtocol(){
     lineHeight = 75.0;
+    padding = 30;
 }
 
 GameProtocol *GameProtocol::getInstance(){
