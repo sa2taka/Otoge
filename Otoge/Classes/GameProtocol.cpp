@@ -8,13 +8,6 @@
 
 #include "GameProtocol.hpp"
 
-GameProtocol *GameProtocol::instance = new GameProtocol();
-
-GameProtocol::GameProtocol(){
-    lineHeight = 75.0;
-    padding = 30;
-}
-
-GameProtocol *GameProtocol::getInstance(){
-    return instance;
-}
+const float GameProtocol::lineHeight = 75;
+const float GameProtocol::padding = 32;
+const int GameProtocol::lineNum = 16;

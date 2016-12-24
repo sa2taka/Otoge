@@ -36,10 +36,14 @@ private:
     int count;
     float speed;
     
+    bool isLoadFinish = false;
+    
     NoteDirector();
 
     cocos2d::Sprite *getSpriteFromColor(char color);
+    void setSprite(char color, int location);
+    cocos2d::Vec2 getVec2FromWidthLocation(int WidthLocation);
     
-    void flowNote(cocos2d::Sprite *note, cocos2d::Action *move);
+    void createAndDeleteNote();
 };
 #endif /* NoteDirector_hpp */

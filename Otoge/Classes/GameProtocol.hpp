@@ -9,16 +9,10 @@
 #ifndef GameProtocol_h
 #define GameProtocol_h
 
-class GameProtocol{
-public:
-    static GameProtocol *getInstance();
-    float lineHeight;
-    float padding;
-    
-private:
-    static GameProtocol *instance;
-    
-    GameProtocol();
+struct GameProtocol{
+    static const float lineHeight;
+    static const float padding;
+    static const int lineNum;
 };
 
 #endif /* GameProtocol_h */
