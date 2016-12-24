@@ -13,6 +13,7 @@ struct GameProtocol{
     static const float lineHeight;
     static const float padding;
     static const int lineNum;
+    static const int beatPerSec;
 };
 
 #endif /* GameProtocol_h */

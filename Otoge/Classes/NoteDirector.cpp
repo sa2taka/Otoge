@@ -18,6 +18,8 @@ NoteDirector *NoteDirector::instance = new NoteDirector();
 
 NoteDirector::NoteDirector(){
     count = 0;
+    startBeatTime = -1;
+    timeFromStart = 0;
 }
 
 /***
@@ -36,13 +38,6 @@ NoteDirector* NoteDirector::getInstance(){
  */
 void NoteDirector::setSpeed(float speed){
     this->speed = speed;
-    
-    //  cocos2dxはデフォルトで60FPS
-    MoveBy *beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::lineHeight)));
-    MoveBy *afterMove = MoveBy::create(speed, Vec2(0, -GameProtocol::lineHeight) / 2);
-    FadeOut *afterFade = FadeOut::create(speed);
-    Spawn *afterSpawn = Spawn::create(afterMove, afterFade, nullptr);
-    noteSequence = Sequence::create(beforeMove, afterSpawn, nullptr);
 }
 
 /**
@@ -62,21 +57,41 @@ void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
 void NoteDirector::loadList(std::string filename){
     setSprite('r', 1);
     count++;
+    setSprite('b', 2);
+    count++;
+    setSprite('r', 3);
+    count++;
     setSprite('b', 4);
     count++;
-    setSprite('p', 16);
+    setSprite('r', 5);
+    count++;
+    setSprite('b', 6);
+    count++;
+    setSprite('r', 7);
+    count++;
+    setSprite('b', 8);
+    count++;
+    setSprite('p', 9);
     count = 0;
     isLoadFinish = true;
+    bpm = 120;
 }
 
 /**
  呼ばれる度にノートを一回分動かす操作
  */
-void NoteDirector::updateNotes(){
+void NoteDirector::updateNotes(float delta){
     if(isLoadFinish){
-        createAndDeleteNote();
+        timeFromStart += delta;
+        //  初期状態だと必ず実行される(あんまりにもbpmが高いときを除いて)
+        if(timeFromStart - startBeatTime>= bpm / (60 * GameProtocol::beatPerSec) - 1 / 60){
+            //log("%f", timeFromStart - startBeatTime);
+            createAndDeleteNote();
+            startBeatTime = timeFromStart;
+
+            count++;
+        }
     }
-    count++;
 }
 
 /***
@@ -99,25 +114,35 @@ Sprite *NoteDirector::getSpriteFromColor(char color){
  色と横の位置からスプライトを生成する
  */
 void NoteDirector::setSprite(char color, int location){
+    notes.push_back(*new Note());
+    
+    if(color == 'n'){
+        notes[count].isNote = false;
+    }
+    
+    notes[count].color = color;
+    notes[count].sprite = getSpriteFromColor(color);
+    
+    notes[count].location = location;
+    notes[count].sprite->setPosition(getVec2FromWidthLocation(location));
+    
+    //  親子付け
     switch(color){
         case 'b' :
-            notes.push_back(getSpriteFromColor('b'));
-            notes[count]->setPosition(getVec2FromWidthLocation(location));
-            blueNote->addChild(notes[count]);
+            blueNote->addChild(notes[count].sprite);
             break;
         case 'r' :
-            notes.push_back(getSpriteFromColor('r'));
-            notes[count]->setPosition(getVec2FromWidthLocation(location));
-            redNote->addChild(notes[count]);
+            redNote->addChild(notes[count].sprite);
             break;
         case 'p' :
-            notes.push_back(getSpriteFromColor('p'));
-            notes[count]->setPosition(getVec2FromWidthLocation(location));
-            purpleNote->addChild(notes[count]);
+            purpleNote->addChild(notes[count].sprite);
             break;
     }
 }
 
+/**
+ Locationに応じたノートの初期位置の取得
+ */
 Vec2 NoteDirector::getVec2FromWidthLocation(int WidthLocation){
     float y = Director::getInstance()->getWinSize().height;
     float winWidth = Director::getInstance()->getWinSize().width;
@@ -126,22 +151,32 @@ Vec2 NoteDirector::getVec2FromWidthLocation(int WidthLocation){
     return Vec2(x, y);
 }
 
+
+Sequence *NoteDirector::getSequence(){
+    //  cocos2dxはデフォルトで60FPS
+    MoveBy *beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::lineHeight)));
+    MoveBy *afterMove = MoveBy::create(speed, Vec2(0, -GameProtocol::lineHeight) / 2);
+    FadeOut *afterFade = FadeOut::create(speed);
+    Spawn *afterSpawn = Spawn::create(afterMove, afterFade, nullptr);
+    return Sequence::create(beforeMove, afterSpawn, nullptr);
+}
+
 /**
  ノートの生成と削除を行う, Class変数であるcountを使うため引数はない
  */
 void NoteDirector::createAndDeleteNote(){
     if(notes.size() + (60 * speed * 2)  > count){
         //  ノートの生成
-        if(count >= 0 && count < notes.size() && notes[count] != nullptr){
+        if(count >= 0 && count < notes.size() && notes[count].isNote){
             //  何故かこうするとうまくいく
-            auto tempSequence = noteSequence->clone();
-            notes[count]->runAction(tempSequence);
-            noteSequence = tempSequence;
+            notes[count].sprite->runAction(getSequence());
         }
         int temp = count - (60 * speed * 2);
         //  ノートの削除
-        if(temp >= 0 && temp <= notes.size() && notes[temp] != nullptr){
-            notes[temp]->getParent()->removeChild(notes[temp]);
+        if(temp >= 0 && temp <= notes.size() && notes[temp].isNote){
+            notes[temp].sprite->getParent()->removeChild(notes[temp].sprite);
+            notes[temp].sprite = nullptr;
+            notes[temp].isExist = false;
         }
     }
 }

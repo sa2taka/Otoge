@@ -12,6 +12,21 @@
 #include "cocos2d.h"
 
 class NoteDirector{
+    
+    typedef struct note{
+        cocos2d::Sprite* sprite;
+        int location;
+        char color;
+        bool isExist;   //  存在しているかどうか
+        bool isNote;    //  自身がノートなのかどうか(ノートでない場合もある)
+        
+        note(){
+            location = 0;
+            color = 'n';
+            isExist = false;
+            isNote = true;
+        }
+    }Note;
 public:
     static NoteDirector* getInstance();
     
@@ -20,12 +35,12 @@ public:
     
     void loadList(std::string filename);
     
-    void updateNotes();
+    void updateNotes(float delta);
     
 private:
     static NoteDirector* instance;
     
-    std::vector<cocos2d::Sprite *>  notes;
+    std::vector<Note>  notes;
     
     cocos2d::Sequence *noteSequence;
     
@@ -35,6 +50,10 @@ private:
     
     int count;
     float speed;
+    double bpm;
+    
+    double startBeatTime;
+    double timeFromStart;
     
     bool isLoadFinish = false;
     
@@ -43,6 +62,7 @@ private:
     cocos2d::Sprite *getSpriteFromColor(char color);
     void setSprite(char color, int location);
     cocos2d::Vec2 getVec2FromWidthLocation(int WidthLocation);
+    cocos2d::Sequence *getSequence();
     
     void createAndDeleteNote();
 };

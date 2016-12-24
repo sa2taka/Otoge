@@ -33,7 +33,7 @@ bool MainScene::init()
     {
         return false;
     }
-    this->scheduleUpdate();
+    this->schedule(schedule_selector(MainScene::update), 1/30);
     noteDirector = NoteDirector::getInstance();
     
     auto blueNote = SpriteBatchNode::create("img/blue_note.png");
@@ -49,10 +49,10 @@ bool MainScene::init()
     
     noteDirector->setSpeed(2);
     
-    
     return true;
 }
 
 void MainScene::update(float delta){
-    noteDirector->updateNotes();
+    noteDirector->updateNotes(delta);
+    log("%f", delta);
 }
