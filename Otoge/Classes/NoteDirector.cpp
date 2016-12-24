@@ -72,6 +72,20 @@ void NoteDirector::loadList(std::string filename){
     setSprite('b', 8);
     count++;
     setSprite('p', 9);
+    count++;
+    setSprite('r', 10);
+    count++;
+    setSprite('b', 11);
+    count++;
+    setSprite('r', 12);
+    count++;
+    setSprite('b', 13);
+    count++;
+    setSprite('r', 14);
+    count++;
+    setSprite('b', 15);
+    count++;
+    setSprite('r', 16);
     count = 0;
     isLoadFinish = true;
     bpm = 120;
@@ -84,7 +98,7 @@ void NoteDirector::updateNotes(float delta){
     if(isLoadFinish){
         timeFromStart += delta;
         //  初期状態だと必ず実行される(あんまりにもbpmが高いときを除いて)
-        if(timeFromStart - startBeatTime>= bpm / (60 * GameProtocol::beatPerSec) - 1 / 60){
+        if(timeFromStart - startBeatTime>= bpm / (60 * GameProtocol::beatPerSec)){
             //log("%f", timeFromStart - startBeatTime);
             createAndDeleteNote();
             startBeatTime = timeFromStart;
@@ -147,7 +161,7 @@ Vec2 NoteDirector::getVec2FromWidthLocation(int WidthLocation){
     float y = Director::getInstance()->getWinSize().height;
     float winWidth = Director::getInstance()->getWinSize().width;
     float noteWidth = winWidth / 2 - GameProtocol::padding * 2;
-    float x = noteWidth / GameProtocol::lineNum * WidthLocation;
+    float x = noteWidth / GameProtocol::lineNum * WidthLocation + GameProtocol::padding;
     return Vec2(x, y);
 }
 

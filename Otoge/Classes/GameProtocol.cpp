@@ -9,6 +9,6 @@
 #include "GameProtocol.hpp"
 
 const float GameProtocol::lineHeight = 75;
-const float GameProtocol::padding = 15;
+const float GameProtocol::padding = 30;
 const int GameProtocol::lineNum = 16;
 const int GameProtocol::beatPerSec = 32;
