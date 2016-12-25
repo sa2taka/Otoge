@@ -102,7 +102,7 @@ void NoteDirector::updateNotes(float delta){
             //log("%f", timeFromStart - startBeatTime);
             createAndDeleteNote();
             startBeatTime = timeFromStart;
-
+            
             count++;
         }
     }
@@ -130,42 +130,46 @@ Sprite *NoteDirector::getSpriteFromColor(char color){
 void NoteDirector::setSprite(char color, int location){
     notes.push_back(*new Note());
     
-    if(color == 'n'){
+    if(color != 'b' && color != 'r' && color != 'p'){
         notes[count].isNote = false;
     }
-    
-    notes[count].color = color;
-    notes[count].sprite = getSpriteFromColor(color);
-    
-    notes[count].location = location;
-    notes[count].sprite->setPosition(getVec2FromWidthLocation(location));
-    
-    //  親子付け
-    switch(color){
-        case 'b' :
-            blueNote->addChild(notes[count].sprite);
-            break;
-        case 'r' :
-            redNote->addChild(notes[count].sprite);
-            break;
-        case 'p' :
-            purpleNote->addChild(notes[count].sprite);
-            break;
+    else{
+        notes[count].color = color;
+        notes[count].sprite = getSpriteFromColor(color);
+        
+        notes[count].location = location;
+        notes[count].sprite->setPosition(getVec2FromWidthLocation(location));
+        
+        //  親子付け
+        switch(color){
+            case 'b' :
+                blueNote->addChild(notes[count].sprite);
+                break;
+            case 'r' :
+                redNote->addChild(notes[count].sprite);
+                break;
+            case 'p' :
+                purpleNote->addChild(notes[count].sprite);
+                break;
+        }
     }
 }
 
 /**
  Locationに応じたノートの初期位置の取得
  */
-Vec2 NoteDirector::getVec2FromWidthLocation(int WidthLocation){
+Vec2 NoteDirector::getVec2FromWidthLocation(int widthLocation){
     float y = Director::getInstance()->getWinSize().height;
     float winWidth = Director::getInstance()->getWinSize().width;
     float noteWidth = winWidth / 2 - GameProtocol::padding * 2;
-    float x = noteWidth / GameProtocol::lineNum * WidthLocation + GameProtocol::padding;
+    float correctLocation = (widthLocation - 1) % GameProtocol::lineNum + 1;
+    float x = noteWidth / GameProtocol::lineNum * correctLocation + GameProtocol::padding;
     return Vec2(x, y);
 }
 
-
+/**
+ 動きを返す
+ */
 Sequence *NoteDirector::getSequence(){
     //  cocos2dxはデフォルトで60FPS
     MoveBy *beforeMove = MoveBy::create(speed, Vec2(0, -(Director::getInstance()->getWinSize().height - GameProtocol::lineHeight)));
