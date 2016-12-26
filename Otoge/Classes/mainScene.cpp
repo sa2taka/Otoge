@@ -34,6 +34,27 @@ bool MainScene::init()
         return false;
     }
     this->scheduleUpdate();
+    
+    //  ノート関連の初期化
+    noteInit();
+    //  判定関連の初期化
+    judgeInit();
+    
+    //  コールバックの設定
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(MainScene::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(MainScene::onTouchMoved, this);
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
+    return true;
+}
+
+void MainScene::update(float delta){
+    noteDirector->updateNotes(delta);
+}
+
+void MainScene::noteInit(){
     noteDirector = NoteDirector::getInstance();
     
     auto blueNote = SpriteBatchNode::create("img/blue_note.png");
@@ -48,10 +69,23 @@ bool MainScene::init()
     this->addChild(purpleNote);
     
     noteDirector->setSpeed(2);
+}
+
+void MainScene::judgeInit(){
+    judgeDirector = JudgeDirector::getInstance();
     
+    auto judgeSprite = Sprite::create("img/judge_line.png");
+    
+    judgeDirector->setJudgeSprite(judgeSprite);
+    
+    this->addChild(judgeSprite);
+}
+
+bool MainScene::onTouchBegan(Touch *touch, Event *event){
+    judgeDirector->moveJudgeLine(touch->getLocation());
     return true;
 }
 
-void MainScene::update(float delta){
-    noteDirector->updateNotes(delta);
+void MainScene::onTouchMoved(Touch* touch, Event* event) {
+    judgeDirector->moveJudgeLine(touch->getLocation());
 }

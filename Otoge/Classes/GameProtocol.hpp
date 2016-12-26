@@ -14,6 +14,8 @@ struct GameProtocol{
     static const float padding;
     static const int lineNum;
     static const int beatPerSec;
+    static const int greatRange;
+    static const int goodRange;
 };
 
 #endif /* GameProtocol_h */

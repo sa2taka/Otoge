@@ -65,6 +65,7 @@
 		D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */; };
 		D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E11E0D83C7004EC582 /* MainScene.cpp */; };
 		D34956E61E0D8565004EC582 /* GameProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E51E0D8565004EC582 /* GameProtocol.cpp */; };
+		D39F5B311E115F5900BB56F6 /* JudgeDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */; };
 		D3FB9C5F1E0C2752005D0D49 /* img in Resources */ = {isa = PBXBuildFile; fileRef = D3FB9C5E1E0C2752005D0D49 /* img */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
@@ -172,6 +173,8 @@
 		D34956E21E0D83C7004EC582 /* MainScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainScene.hpp; sourceTree = "<group>"; };
 		D34956E41E0D83DE004EC582 /* GameProtocol.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameProtocol.hpp; sourceTree = "<group>"; };
 		D34956E51E0D8565004EC582 /* GameProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameProtocol.cpp; sourceTree = "<group>"; };
+		D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JudgeDirector.cpp; sourceTree = "<group>"; };
+		D39F5B301E115F5900BB56F6 /* JudgeDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JudgeDirector.hpp; sourceTree = "<group>"; };
 		D3FB9C5E1E0C2752005D0D49 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; path = img; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -319,6 +322,8 @@
 			children = (
 				D34956E41E0D83DE004EC582 /* GameProtocol.hpp */,
 				D34956E51E0D8565004EC582 /* GameProtocol.cpp */,
+				D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */,
+				D39F5B301E115F5900BB56F6 /* JudgeDirector.hpp */,
 				D34956E11E0D83C7004EC582 /* MainScene.cpp */,
 				D34956E21E0D83C7004EC582 /* MainScene.hpp */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -536,6 +541,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */,
 				D34956E61E0D8565004EC582 /* GameProtocol.cpp in Sources */,
+				D39F5B311E115F5900BB56F6 /* JudgeDirector.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);

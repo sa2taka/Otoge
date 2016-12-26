@@ -19,19 +19,23 @@ class NoteDirector{
         char color;
         bool isExist;   //  存在しているかどうか
         bool isNote;    //  自身がノートなのかどうか(ノートでない場合もある)
+        int lastJudge;  //  ノートの最後のジャッジフレーム数(-1は初期値であり、ジャッジされていないことを表している)
         
         note(){
             location = 0;
             color = 'n';
             isExist = false;
             isNote = true;
+            lastJudge = -1;
         }
     }Note;
 public:
     static NoteDirector* getInstance();
     
     void setSpeed(float speed);
-    void setNoteSprite(cocos2d::SpriteBatchNode* blueNote, cocos2d::SpriteBatchNode* redNote, cocos2d::SpriteBatchNode* purpleNote);
+    void setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
+                       cocos2d::SpriteBatchNode* redNote,
+                       cocos2d::SpriteBatchNode* purpleNote);
     
     void loadList(std::string filename);
     

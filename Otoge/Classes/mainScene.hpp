@@ -11,11 +11,12 @@
 
 #include "cocos2d.h"
 #include "NoteDirector.hpp"
+#include "JudgeDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
 public:
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene *createScene();
     
     virtual bool init();
     
@@ -24,9 +25,17 @@ public:
     
 private:
     int count;
-    NoteDirector* noteDirector;
+    NoteDirector *noteDirector;
+    JudgeDirector *judgeDirector;
+    
+    void noteInit();
+    void judgeInit();
     
     void update(float delta);
+    
+    //  イベントのコールバック関数
+    bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
+    void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event);
 };
 
 #endif /* mainScene_hpp */
