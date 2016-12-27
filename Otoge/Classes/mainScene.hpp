@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "NoteDirector.hpp"
 #include "JudgeDirector.hpp"
+#include "ButtonDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -27,9 +28,11 @@ private:
     int count;
     NoteDirector *noteDirector;
     JudgeDirector *judgeDirector;
+    ButtonDirector *buttonDirector;
     
     void noteInit();
     void judgeInit();
+    void buttonInit();
     
     void update(float delta);
     

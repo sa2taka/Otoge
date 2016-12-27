@@ -39,6 +39,8 @@ bool MainScene::init()
     noteInit();
     //  判定関連の初期化
     judgeInit();
+    //  ボタン関連の初期化
+    buttonInit();
     
     //  コールバックの設定
     auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -79,6 +81,34 @@ void MainScene::judgeInit(){
     judgeDirector->setJudgeSprite(judgeSprite);
     
     this->addChild(judgeSprite);
+}
+
+void MainScene::buttonInit(){
+    auto winSize = Director::getInstance()->getWinSize();
+    auto rect = Rect(0, 0, winSize.width / 4, winSize.height);
+    
+    auto notPushedRedButton = Sprite::create();
+    auto notPushedBlueButton = Sprite::create();
+    auto pushedRedButton = Sprite::create();
+    auto pushedBlueButton = Sprite::create();
+    
+    notPushedRedButton->setTextureRect(rect);
+    notPushedBlueButton->setTextureRect(rect);
+    pushedRedButton->setTextureRect(rect);
+    pushedBlueButton->setTextureRect(rect);
+    
+    notPushedRedButton->setColor(Color3B(160, 15, 15));
+    notPushedBlueButton->setColor(Color3B(15, 15, 200));
+    pushedRedButton->setColor(Color3B(220, 50, 50));
+    pushedBlueButton->setColor(Color3B(230, 50, 50));
+    
+    auto redButton = MenuItemSprite::create(notPushedRedButton, pushedRedButton);
+    auto blueButton = MenuItemSprite::create(notPushedBlueButton, pushedBlueButton);
+    
+    buttonDirector->setButtonSprite(redButton, blueButton);
+    
+    this->addChild(redButton);
+    this->addChild(blueButton);
 }
 
 bool MainScene::onTouchBegan(Touch *touch, Event *event){
