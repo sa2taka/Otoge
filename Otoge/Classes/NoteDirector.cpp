@@ -121,7 +121,7 @@ void NoteDirector::loadList(std::string filename){
     setNote('r', 16);
     isLoadFinish = true;
     bpm = 240;
-    count = -GameProtocol::notePerBeat;
+    count = -GameProtocol::notePerBeat * 16;
 }
 
 /**
@@ -216,16 +216,17 @@ Sequence *NoteDirector::getSequence(){
  */
 void NoteDirector::createAndDeleteNote(){
     //  ノートの生成
-    if(count >= 0 && count < notes.size()){
-        if(notes[count].isNote){
-            notes[count].sprite->runAction(getSequence());
-            notes[count].isExist = true;
+    int temp = count + bpm / 60 * speed * GameProtocol::notePerBeat + 1;
+    if(temp >= 0 && temp < notes.size()){
+        if(notes[temp].isNote){
+            notes[temp].sprite->runAction(getSequence());
+            notes[temp].isExist = true;
         }
     }
-    int temp = count - bpm / 60 * speed * GameProtocol::notePerBeat * 2;
+    temp = count - bpm / 60 * speed * GameProtocol::notePerBeat;
     //  ノートの削除
     if(temp >= 0 && temp < notes.size()){
-        if(notes[count].isNote){
+        if(notes[temp].isNote){
             notes[temp].sprite->getParent()->removeChild(notes[temp].sprite);
             notes[temp].sprite = nullptr;
             notes[temp].isExist = false;
@@ -239,7 +240,7 @@ void NoteDirector::createAndDeleteNote(){
 void NoteDirector::judgeNote(){
     int i;
     for(i = -GameProtocol::goodRange;i <= GameProtocol::goodRange;i++){
-        int referenceIndex = count + i - bpm * speed / 8 ;
+        int referenceIndex = count + i;
         if(referenceIndex >= 0 && referenceIndex < notes.size()){
             notes[referenceIndex];
             bool judge = JudgeDirector::getInstance()->judge(notes[referenceIndex].location,
