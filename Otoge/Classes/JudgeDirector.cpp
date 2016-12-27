@@ -40,21 +40,6 @@ void JudgeDirector::setJudgeSprite(cocos2d::Sprite *judgeSprite){
 }
 
 /**
- ジャッジラインの動き
- */
-void JudgeDirector::moveJudgeLine(Vec2 position){
-    float moveX = position.x;
-    
-    //  判定ライン画像の右端が画面の半分より右に行かないときのみ判定ラインを動かす
-    if(moveX <= Director::getInstance()->getWinSize().width / 2 - judgeSprite->getContentSize().width / 2){
-        if(moveX < judgeSprite->getContentSize().width / 2){
-            moveX = judgeSprite->getContentSize().width / 2;
-        }
-        judgeSprite->setPosition(moveX, GameProtocol::lineHeight);
-    }
-}
-
-/**
  判定を行う
  */
 bool JudgeDirector::judge(int location, char color, float noteWidth){
@@ -78,5 +63,31 @@ bool JudgeDirector::judge(int location, char color, float noteWidth){
     else{
         return false;
     }
+}
+
+
+/**
+ ジャッジラインの動き
+ */
+void JudgeDirector::moveJudgeLine(){
+    int i;
+    float moveX = judgeSprite->getPosition().x;
+    int judgeLineTouchNum = 0;
+    
+    auto touchDirector = TouchDirector::getInstance();
+    for(i = 0;i < touchDirector->getSize();i++){
+        if(touchDirector->isTouching(i)){
+            auto position = touchDirector->getPosition(i);
+            //  判定ライン画像の右端が画面の半分より右に行かないときのみ判定ラインを動かす
+            if(moveX <= Director::getInstance()->getWinSize().width / 2 - judgeSprite->getContentSize().width / 2){
+                //  押された平均を取る
+                moveX *= judgeLineTouchNum; //一本でも何かの指が触れていたらここで初期値が消える
+                moveX += judgeSprite->getContentSize().width / 2;
+                moveX /= judgeLineTouchNum + 1;
+                judgeLineTouchNum++;
+            }
+        }
+    }
+    judgeSprite->setPosition(moveX, GameProtocol::lineHeight);
 }
 

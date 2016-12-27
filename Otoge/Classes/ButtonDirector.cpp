@@ -11,34 +11,87 @@
 USING_NS_CC;
 
 ButtonDirector *ButtonDirector::instance = new ButtonDirector();
-ButtonDirector::ButtonDirector(){}
+ButtonDirector::ButtonDirector(){
+    isTouchRed = false;
+    isTouchBlue = false;
+}
 
 /***
  public
  */
+ButtonDirector *ButtonDirector::getInstance(){
+    return instance;
+}
 
 /**
  スプライトの設定
  */
-void ButtonDirector::setButtonSprite(cocos2d::MenuItemSprite *redButton, cocos2d::MenuItemSprite *blueButton){
-    redButton->setCallback(CC_CALLBACK_1(ButtonDirector::onPushedRedButton, this));
-    blueButton->setCallback(CC_CALLBACK_1(ButtonDirector::onPushedBlueButton, this));
+void ButtonDirector::setButtonSprite(cocos2d::Sprite *notPushedRed,
+                                     cocos2d::Sprite *notPushedBlue,
+                                     cocos2d::Sprite *pushedRed,
+                                     cocos2d::Sprite *pushedBlue){
+    notPushedRed->setColor(Color3B(160, 15, 15));
+    notPushedBlue->setColor(Color3B(15, 15, 200));
+    pushedRed->setColor(Color3B(220, 50, 50));
+    pushedBlue->setColor(Color3B(50, 50, 230));
     
-    auto winSize = Director::getInstance()->getWinSize();
-    redButton->setAnchorPoint(Vec2(0, 0));
-    redButton->setPosition(winSize.width / 2 + winSize.width / 4, 0);
-    blueButton->setAnchorPoint(Vec2(0, 0));
-    blueButton->setPosition(winSize.width / 2, 0);
+    notPushedRed->setOpacity(128);
+    notPushedBlue->setOpacity(128);
+    pushedRed->setOpacity(128);
+    pushedBlue->setOpacity(128);
+    
+    float winWidth = Director::getInstance()->getWinSize().width;
+    notPushedRed->setAnchorPoint(Vec2::ZERO);
+    notPushedRed->setPosition(winWidth / 2 + winWidth / 4, 0);
+    notPushedBlue->setAnchorPoint(Vec2::ZERO);
+    notPushedBlue->setPosition(winWidth/2, 0);
+    pushedRed->setAnchorPoint(Vec2::ZERO);
+    pushedRed->setPosition(winWidth / 2 + winWidth / 4, 0);
+    pushedBlue->setAnchorPoint(Vec2::ZERO);
+    pushedBlue->setPosition(winWidth/2, 0);
+    
+    pushedRed->setVisible(false);
+    pushedBlue->setVisible(false);
+    
+    this->notPushedRed = notPushedRed;
+    this->notPushedBlue = notPushedBlue;
+    this->pushedRed = pushedRed;
+    this->pushedBlue = pushedBlue;
 }
 
-/***
- private
-*/
+/**
+ タッチトラッカーによりボタンがタッチされているかを確認する
+ */
 
-void ButtonDirector::onPushedRedButton(Ref *pSender){
-    log("Pushed Red Button");
-}
-
-void ButtonDirector::onPushedBlueButton(Ref *pSender){
-    log("Pushed Blue Button");
+void ButtonDirector::checkTouchButton(){
+    int i;
+    //  初期化
+    isTouchRed = false;
+    isTouchBlue = false;
+    pushedRed->setVisible(false);
+    pushedBlue->setVisible(false);
+    notPushedRed->setVisible(true);
+    notPushedBlue->setVisible(true);
+    
+    //  更新
+    auto touchDirector = TouchDirector::getInstance();
+    for(i = 0;i < touchDirector->getSize();i++){
+        if(touchDirector->isTouching(i)){
+            auto position = touchDirector->getPosition(i);
+            float winWidth = Director::getInstance()->getWinSize().width;
+            log("%f, %f", position.x, position.y);
+            if(position.x >= winWidth / 2){
+                if(position.x >= winWidth / 2 + winWidth / 4){
+                    isTouchRed = true;
+                    pushedRed->setVisible(true);
+                    notPushedRed->setVisible(false);
+                }
+                else{
+                    isTouchBlue = true;
+                    pushedBlue->setVisible(true);
+                    notPushedBlue->setVisible(false);
+                }
+            }
+        }
+    }
 }

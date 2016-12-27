@@ -240,7 +240,6 @@ void NoteDirector::createAndDeleteNote(){
 void NoteDirector::judgeNote(){
     int i;
     int frameStartJudge = getFrameStartJudge();
-    log("%d", frameStartJudge);
     for(i = -frameStartJudge;i <= frameStartJudge;i++){
         int referenceIndex = count + i;
         if(referenceIndex >= 0 && referenceIndex < notes.size()){

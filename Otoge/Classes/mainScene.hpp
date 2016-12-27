@@ -13,6 +13,7 @@
 #include "NoteDirector.hpp"
 #include "JudgeDirector.hpp"
 #include "ButtonDirector.hpp"
+#include "TouchDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -29,6 +30,7 @@ private:
     NoteDirector *noteDirector;
     JudgeDirector *judgeDirector;
     ButtonDirector *buttonDirector;
+    TouchDirector *touchDirector;
     
     void noteInit();
     void judgeInit();
@@ -37,8 +39,9 @@ private:
     void update(float delta);
     
     //  イベントのコールバック関数
-    bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
-    void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event);
+    void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
+    void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
+    void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
 };
 
 #endif /* mainScene_hpp */

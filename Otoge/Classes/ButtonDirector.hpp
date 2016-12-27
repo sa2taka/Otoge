@@ -10,25 +10,33 @@
 #define ButtonDirector_hpp
 
 #include "cocos2d.h"
+#include "TouchDirector.hpp"
 
 class ButtonDirector{
 public:
     static ButtonDirector *getInstance();
     
-    void setButtonSprite(cocos2d::MenuItemSprite *redButton, cocos2d::MenuItemSprite *blueButton);
+    void setButtonSprite(cocos2d::Sprite *notPushedRed,
+                         cocos2d::Sprite *notPushedBlue,
+                         cocos2d::Sprite *pushedRed,
+                         cocos2d::Sprite *pushedBlue);
+    
+    //  ボタンがタッチされているのを確認する
+    void checkTouchButton();
     
 private:
     static ButtonDirector *instance;
     
-    cocos2d::MenuItemImage *redButton;
-    cocos2d::MenuItemImage *blueButton;
+    cocos2d::Sprite *notPushedRed;
+    cocos2d::Sprite *notPushedBlue;
+    cocos2d::Sprite *pushedRed;
+    cocos2d::Sprite *pushedBlue;
+    
+    bool isTouchRed;
+    bool isTouchBlue;
     
     //  コンストラクタ
     ButtonDirector();
-    
-    //  コールバック
-    void onPushedRedButton(cocos2d::Ref *pSender);
-    void onPushedBlueButton(cocos2d::Ref *pSender);
 };
 
 #endif /* ButtonDirector_hpp */

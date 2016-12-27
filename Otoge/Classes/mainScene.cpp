@@ -41,14 +41,16 @@ bool MainScene::init()
     judgeInit();
     //  ボタン関連の初期化
     buttonInit();
+    //  タッチ関連の初期化(インスタンスの取得のみ)
+    touchDirector = TouchDirector::getInstance();
     
-    //  コールバックの設定
+    //  コールバックの設定(コールバックと言うかタッチの設定)
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(MainScene::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(MainScene::onTouchMoved, this);
-    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->onTouchesBegan = CC_CALLBACK_2(MainScene::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(MainScene::onTouchesMoved, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(MainScene::onTouchesEnded, this);
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);        
     return true;
 }
 
@@ -84,38 +86,46 @@ void MainScene::judgeInit(){
 }
 
 void MainScene::buttonInit(){
-    auto winSize = Director::getInstance()->getWinSize();
-    auto rect = Rect(0, 0, winSize.width / 4, winSize.height);
+    buttonDirector = ButtonDirector::getInstance();
     
     auto notPushedRedButton = Sprite::create();
     auto notPushedBlueButton = Sprite::create();
     auto pushedRedButton = Sprite::create();
     auto pushedBlueButton = Sprite::create();
+
+    auto winSize = Director::getInstance()->getWinSize();
+    auto rect = Rect(0, 0, winSize.width / 4, winSize.height);
     
     notPushedRedButton->setTextureRect(rect);
     notPushedBlueButton->setTextureRect(rect);
     pushedRedButton->setTextureRect(rect);
     pushedBlueButton->setTextureRect(rect);
     
-    notPushedRedButton->setColor(Color3B(160, 15, 15));
-    notPushedBlueButton->setColor(Color3B(15, 15, 200));
-    pushedRedButton->setColor(Color3B(220, 50, 50));
-    pushedBlueButton->setColor(Color3B(230, 50, 50));
+    buttonDirector->setButtonSprite(notPushedRedButton,
+                                    notPushedBlueButton,
+                                    pushedRedButton,
+                                    pushedBlueButton);
     
-    auto redButton = MenuItemSprite::create(notPushedRedButton, pushedRedButton);
-    auto blueButton = MenuItemSprite::create(notPushedBlueButton, pushedBlueButton);
-    
-    buttonDirector->setButtonSprite(redButton, blueButton);
-    
-    this->addChild(redButton);
-    this->addChild(blueButton);
+    this->addChild(notPushedRedButton);
+    this->addChild(notPushedBlueButton);
+    this->addChild(pushedRedButton);
+    this->addChild(pushedBlueButton);
 }
 
-bool MainScene::onTouchBegan(Touch *touch, Event *event){
-    judgeDirector->moveJudgeLine(touch->getLocation());
-    return true;
+void MainScene::onTouchesBegan(const std::vector<Touch*>& touches, Event *event){
+    touchDirector->checkTouch(touches, true);
+    judgeDirector->moveJudgeLine();
+    buttonDirector->checkTouchButton();
 }
 
-void MainScene::onTouchMoved(Touch* touch, Event* event) {
-    judgeDirector->moveJudgeLine(touch->getLocation());
+void MainScene::onTouchesMoved(const std::vector<Touch*>& touches, Event *event){
+    touchDirector->checkTouch(touches, true);
+    judgeDirector->moveJudgeLine();
+    buttonDirector->checkTouchButton();
+}
+
+void MainScene::onTouchesEnded(const std::vector<Touch*>& touches, Event *event){
+    touchDirector->checkTouch(touches, false);
+    judgeDirector->moveJudgeLine();
+    buttonDirector->checkTouchButton();
 }

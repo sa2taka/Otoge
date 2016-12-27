@@ -10,14 +10,15 @@
 #define JudgeDirector_hpp
 
 #include "cocos2d.h"
+#include "TouchDirector.hpp"
 
 class JudgeDirector{
 public:
     static JudgeDirector* getInstance();
     void setJudgeSprite(cocos2d::Sprite *judgeSprite);
     
-    void moveJudgeLine(cocos2d::Vec2 position);
     bool judge(int location, char color, float noteWidth);
+    void moveJudgeLine();
     
 private:
     static JudgeDirector* instance;
