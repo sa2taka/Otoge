@@ -68,7 +68,7 @@ void MainScene::noteInit(){
     this->addChild(redNote);
     this->addChild(purpleNote);
     
-    noteDirector->setSpeed(2);
+    noteDirector->setSpeed(1);
 }
 
 void MainScene::judgeInit(){
