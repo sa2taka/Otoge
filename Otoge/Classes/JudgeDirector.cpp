@@ -79,10 +79,10 @@ void JudgeDirector::moveJudgeLine(){
         if(touchDirector->isTouching(i)){
             auto position = touchDirector->getPosition(i);
             //  判定ライン画像の右端が画面の半分より右に行かないときのみ判定ラインを動かす
-            if(moveX <= Director::getInstance()->getWinSize().width / 2 - judgeSprite->getContentSize().width / 2){
+            if(position.x<= Director::getInstance()->getWinSize().width / 2 - judgeSprite->getContentSize().width / 2){
                 //  押された平均を取る
                 moveX *= judgeLineTouchNum; //一本でも何かの指が触れていたらここで初期値が消える
-                moveX += judgeSprite->getContentSize().width / 2;
+                moveX += position.x;
                 moveX /= judgeLineTouchNum + 1;
                 judgeLineTouchNum++;
             }
