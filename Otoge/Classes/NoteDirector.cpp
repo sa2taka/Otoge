@@ -9,6 +9,8 @@
 #include "NoteDirector.hpp"
 #include "GameProtocol.hpp"
 #include "JudgeDirector.hpp"
+#include "ButtonDirector.hpp"
+#include "ScoreDirector.hpp"
 
 USING_NS_CC;
 
@@ -21,6 +23,7 @@ NoteDirector::NoteDirector(){
     count = 0;
     startBeatTime = -1;
     timeFromStart = 0;
+    allNotesNum = 0;
 }
 
 /***
@@ -119,9 +122,13 @@ void NoteDirector::loadList(std::string filename){
     setNote('b', 15);
     count++;
     setNote('r', 16);
+    count++;
     isLoadFinish = true;
     bpm = 120;
+    allNotesNum = count;
+    ScoreDirector::getInstance()->setNotesNum(allNotesNum);
     count = -GameProtocol::notePerBeat * 4;
+    
 }
 
 /**
@@ -252,11 +259,33 @@ void NoteDirector::judgeNote(){
             }
             //  iが+(判定ラインを超えているノート)かつノートが存在しているかつ判定はgood以上
             if(i <= 0 && notes[referenceIndex].isExist && notes[referenceIndex].lastJudge != -1){
-                notes[referenceIndex].isExist = false;
-                notes[referenceIndex].sprite->stopAllActions();
-                notes[referenceIndex].sprite->getParent()->removeChild(notes[referenceIndex].sprite);
-                notes[referenceIndex].sprite = nullptr;
-                log("good or great");
+                auto scoreDirector = ScoreDirector::getInstance();
+                switch(notes[referenceIndex].color){
+                    case 'b' :
+                        if(ButtonDirector::getInstance()->isTouchingBlue()){
+                            scoreDirector->updateScore(i);
+                            notes[referenceIndex].isExist = false;
+                        }
+                        break;
+                    case 'r' :
+                        if(ButtonDirector::getInstance()->isTouchingRed()){
+                            scoreDirector->updateScore(i);
+                            notes[referenceIndex].isExist = false;
+                        }
+                        break;
+                    case 'p' :
+                        if(ButtonDirector::getInstance()->isTouchingRed()&&
+                           ButtonDirector::getInstance()->isTouchingBlue()){
+                            scoreDirector->updateScore(i);
+                            notes[referenceIndex].isExist = false;
+                        }
+                        break;
+                }
+                if(!notes[referenceIndex].isExist){
+                    notes[referenceIndex].sprite->stopAllActions();
+                    notes[referenceIndex].sprite->getParent()->removeChild(notes[referenceIndex].sprite);
+                    notes[referenceIndex].sprite = nullptr;
+                }
             }
         }
     }

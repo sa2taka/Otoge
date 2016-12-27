@@ -68,6 +68,7 @@
 		D39F5B311E115F5900BB56F6 /* JudgeDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */; };
 		D3A3B2231E125D73009C8461 /* ButtonDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */; };
 		D3A3B2281E12B57E009C8461 /* TouchDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2261E12B57E009C8461 /* TouchDirector.cpp */; };
+		D3A3B22B1E12BE32009C8461 /* ScoreDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2291E12BE32009C8461 /* ScoreDirector.cpp */; };
 		D3FB9C5F1E0C2752005D0D49 /* img in Resources */ = {isa = PBXBuildFile; fileRef = D3FB9C5E1E0C2752005D0D49 /* img */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
@@ -181,6 +182,8 @@
 		D3A3B2221E125D73009C8461 /* ButtonDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ButtonDirector.hpp; sourceTree = "<group>"; };
 		D3A3B2261E12B57E009C8461 /* TouchDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchDirector.cpp; sourceTree = "<group>"; };
 		D3A3B2271E12B57E009C8461 /* TouchDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchDirector.hpp; sourceTree = "<group>"; };
+		D3A3B2291E12BE32009C8461 /* ScoreDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreDirector.cpp; sourceTree = "<group>"; };
+		D3A3B22A1E12BE32009C8461 /* ScoreDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScoreDirector.hpp; sourceTree = "<group>"; };
 		D3FB9C5E1E0C2752005D0D49 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; path = img; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -340,6 +343,8 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				D34956D31E0D5AE3004EC582 /* NoteDirector.cpp */,
 				D34956D41E0D5AE3004EC582 /* NoteDirector.hpp */,
+				D3A3B2291E12BE32009C8461 /* ScoreDirector.cpp */,
+				D3A3B22A1E12BE32009C8461 /* ScoreDirector.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -549,6 +554,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				D3A3B22B1E12BE32009C8461 /* ScoreDirector.cpp in Sources */,
 				D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */,
 				D3A3B2231E125D73009C8461 /* ButtonDirector.cpp in Sources */,
 				D3A3B2281E12B57E009C8461 /* TouchDirector.cpp in Sources */,

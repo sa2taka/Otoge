@@ -55,6 +55,7 @@ private:
     int count;
     float speed;
     double bpm;
+    int allNotesNum;
     
     double startBeatTime;
     double timeFromStart;

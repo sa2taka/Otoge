@@ -16,6 +16,7 @@ struct GameProtocol{
     static const int notePerBeat;
     static const int greatRange;
     static const int goodRange;
+    static const int maxScore;
 };
 
 #endif /* GameProtocol_h */

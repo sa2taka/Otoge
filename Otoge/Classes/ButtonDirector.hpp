@@ -24,6 +24,9 @@ public:
     //  ボタンがタッチされているのを確認する
     void checkTouchButton();
     
+    bool isTouchingRed();
+    bool isTouchingBlue();
+
 private:
     static ButtonDirector *instance;
     

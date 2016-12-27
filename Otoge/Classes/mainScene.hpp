@@ -14,6 +14,7 @@
 #include "JudgeDirector.hpp"
 #include "ButtonDirector.hpp"
 #include "TouchDirector.hpp"
+#include "ScoreDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -31,10 +32,12 @@ private:
     JudgeDirector *judgeDirector;
     ButtonDirector *buttonDirector;
     TouchDirector *touchDirector;
+    ScoreDirector *scoreDirector;
     
     void noteInit();
     void judgeInit();
     void buttonInit();
+    void scoreInit();
     
     void update(float delta);
     

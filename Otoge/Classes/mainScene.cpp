@@ -43,6 +43,8 @@ bool MainScene::init()
     buttonInit();
     //  タッチ関連の初期化(インスタンスの取得のみ)
     touchDirector = TouchDirector::getInstance();
+    //  スコア関連の初期化
+    scoreInit();
     
     //  コールバックの設定(コールバックと言うかタッチの設定)
     auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -110,6 +112,18 @@ void MainScene::buttonInit(){
     this->addChild(notPushedBlueButton);
     this->addChild(pushedRedButton);
     this->addChild(pushedBlueButton);
+}
+
+void MainScene::scoreInit(){
+    scoreDirector = ScoreDirector::getInstance();
+    
+    auto judgeLabel = Label::createWithSystemFont("hoge", "Arial", 32);
+    auto scoreLabel = Label::createWithSystemFont("huga", "Arial", 24);
+    
+    scoreDirector->setLabel(judgeLabel, scoreLabel);
+
+    this->addChild(judgeLabel);
+    this->addChild(scoreLabel);
 }
 
 void MainScene::onTouchesBegan(const std::vector<Touch*>& touches, Event *event){

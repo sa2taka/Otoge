@@ -14,3 +14,4 @@ const int GameProtocol::lineNum = 8;
 const int GameProtocol::notePerBeat = 8;
 const int GameProtocol::greatRange = 4;
 const int GameProtocol::goodRange = 12;
+const int GameProtocol::maxScore = 1000000;

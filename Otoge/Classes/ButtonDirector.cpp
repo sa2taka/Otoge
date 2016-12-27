@@ -59,10 +59,21 @@ void ButtonDirector::setButtonSprite(cocos2d::Sprite *notPushedRed,
     this->pushedBlue = pushedBlue;
 }
 
+
+/**
+ 各色が押されているかを返す
+ */
+bool ButtonDirector::isTouchingRed(){
+    return isTouchRed;
+}
+
+bool ButtonDirector::isTouchingBlue(){
+    return isTouchBlue;
+}
+
 /**
  タッチトラッカーによりボタンがタッチされているかを確認する
  */
-
 void ButtonDirector::checkTouchButton(){
     int i;
     //  初期化
@@ -79,7 +90,6 @@ void ButtonDirector::checkTouchButton(){
         if(touchDirector->isTouching(i)){
             auto position = touchDirector->getPosition(i);
             float winWidth = Director::getInstance()->getWinSize().width;
-            log("%f, %f", position.x, position.y);
             if(position.x >= winWidth / 2){
                 if(position.x >= winWidth / 2 + winWidth / 4){
                     isTouchRed = true;
