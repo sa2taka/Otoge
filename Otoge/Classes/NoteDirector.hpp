@@ -67,6 +67,7 @@ private:
     void setNote(char color, int location);
     cocos2d::Vec2 getVec2FromWidthLocation(int WidthLocation);
     cocos2d::Sequence *getSequence();
+    int getFrameStartJudge();
     
     void createAndDeleteNote();
     void judgeNote();

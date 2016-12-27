@@ -28,8 +28,7 @@ void ButtonDirector::setButtonSprite(cocos2d::MenuItemSprite *redButton, cocos2d
     redButton->setAnchorPoint(Vec2(0, 0));
     redButton->setPosition(winSize.width / 2 + winSize.width / 4, 0);
     blueButton->setAnchorPoint(Vec2(0, 0));
-    blueButton->setPosition(winSize.width / 2
-                            , 0);
+    blueButton->setPosition(winSize.width / 2, 0);
 }
 
 /***

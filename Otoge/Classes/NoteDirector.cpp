@@ -239,7 +239,9 @@ void NoteDirector::createAndDeleteNote(){
  */
 void NoteDirector::judgeNote(){
     int i;
-    for(i = -GameProtocol::goodRange;i <= GameProtocol::goodRange;i++){
+    int frameStartJudge = getFrameStartJudge();
+    log("%d", frameStartJudge);
+    for(i = -frameStartJudge;i <= frameStartJudge;i++){
         int referenceIndex = count + i;
         if(referenceIndex >= 0 && referenceIndex < notes.size()){
             notes[referenceIndex];
@@ -260,5 +262,15 @@ void NoteDirector::judgeNote(){
         }
     }
 }
+
+/**
+ bpmからグッド以上となる判定で最も遠くなるフレームの差を取得する
+ */
+int NoteDirector::getFrameStartJudge(){
+    //  1フレームでの最大ノーツ数 * goodの幅
+    return (int)((bpm / 60 / 60 * GameProtocol::notePerBeat) * GameProtocol::goodRange);
+}
+
+
 
 
