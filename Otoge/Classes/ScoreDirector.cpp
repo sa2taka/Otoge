@@ -13,22 +13,25 @@ USING_NS_CC;
 
 ScoreDirector *ScoreDirector::instance = new ScoreDirector();
 
-ScoreDirector::ScoreDirector(){};
+ScoreDirector::ScoreDirector(){
+    reset();
+}
 
 ScoreDirector *ScoreDirector::getInstance(){
     return instance;
 }
 
 void ScoreDirector::setLabel(Label *judgeText, Label *scoreText){
-    judgeText->setPosition(Director::getInstance()->getWinSize().width / 2,
-                           Director::getInstance()->getWinSize().height);
+    judgeText->setPosition(Director::getInstance()->getWinSize().width / 4,
+                            Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 4);
     judgeText->setPositionZ(1);
     scoreText->setAnchorPoint(Vec2(0.0, 1.0));
-    scoreText->setPosition(0, Director::getInstance()->getWinSize().height);
+    scoreText->setPosition(0,
+                           Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 8);
     scoreText->setPositionZ(1);
     
     scoreText->setString("0000000");
-    judgeText->setString("hoge");
+    judgeText->setString("");
     
     this->judgeText = judgeText;
     this->scoreText = scoreText;
@@ -52,7 +55,10 @@ int ScoreDirector::getScore(){
 }
 
 void ScoreDirector::updateScore(int lastJudge){
-    if(abs(lastJudge) > GameProtocol::greatRange){
+    if(abs(lastJudge) > GameProtocol::goodRange){
+        judgeText->setString("Miss..");
+    }
+    else if(abs(lastJudge) > GameProtocol::greatRange){
         score += scorePerNote / 2;
         goodNum++;
         judgeText->setString("good");
@@ -61,8 +67,23 @@ void ScoreDirector::updateScore(int lastJudge){
         score += scorePerNote;
         greatNum++;
         judgeText->setString("great");
+        //  double型にしても計算が合わないときがあるため
+        if(greatNum == notesNum){
+            score = GameProtocol::maxScore;
+        }
     }
     char zeroFilledScore[8];
-    sprintf(zeroFilledScore, "%07d", (int)scorePerNote);
+    sprintf(zeroFilledScore, "%07d", (int)score);
     scoreText->setString(zeroFilledScore);
+}
+
+/***
+ private
+*/
+
+void ScoreDirector::reset(){
+    goodNum = 0;
+    greatNum = 0;
+    score = 0;
+    scorePerNote = 0;
 }

@@ -61,67 +61,33 @@ void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
 void NoteDirector::loadList(std::string filename){
     setNote('r', 1);
     count++;
-    setNote('b', 2);
+    setNote('r', 2);
     count++;
     setNote('r', 3);
     count++;
-    setNote('b', 4);
+    setNote('r', 4);
     count++;
     setNote('r', 5);
     count++;
-    setNote('b', 6);
+    setNote('r', 6);
     count++;
     setNote('r', 7);
     count++;
-    setNote('b', 8);
+    setNote('r', 8);
     count++;
-    setNote('p', 9);
+    setNote('r', 7);
     count++;
-    setNote('r', 10);
+    setNote('r', 6);
     count++;
-    setNote('b', 11);
+    setNote('r', 5);
     count++;
-    setNote('r', 12);
+    setNote('r', 4);
     count++;
-    setNote('b', 13);
+    setNote('r', 3);
     count++;
-    setNote('r', 14);
-    count++;
-    setNote('b', 15);
-    count++;
-    setNote('r', 16);
+    setNote('r', 2);
     count++;
     setNote('r', 1);
-    count++;
-    setNote('b', 2);
-    count++;
-    setNote('r', 3);
-    count++;
-    setNote('b', 4);
-    count++;
-    setNote('r', 5);
-    count++;
-    setNote('b', 6);
-    count++;
-    setNote('r', 7);
-    count++;
-    setNote('b', 8);
-    count++;
-    setNote('p', 9);
-    count++;
-    setNote('r', 10);
-    count++;
-    setNote('b', 11);
-    count++;
-    setNote('r', 12);
-    count++;
-    setNote('b', 13);
-    count++;
-    setNote('r', 14);
-    count++;
-    setNote('b', 15);
-    count++;
-    setNote('r', 16);
     count++;
     isLoadFinish = true;
     bpm = 120;
@@ -247,6 +213,7 @@ void NoteDirector::createAndDeleteNote(){
 void NoteDirector::judgeNote(){
     int i;
     int frameStartJudge = getFrameStartJudge();
+    auto scoreDirector = ScoreDirector::getInstance();
     for(i = -frameStartJudge;i <= frameStartJudge;i++){
         int referenceIndex = count + i;
         if(referenceIndex >= 0 && referenceIndex < notes.size()){
@@ -259,24 +226,24 @@ void NoteDirector::judgeNote(){
             }
             //  iが+(判定ラインを超えているノート)かつノートが存在しているかつ判定はgood以上
             if(i <= 0 && notes[referenceIndex].isExist && notes[referenceIndex].lastJudge != -1){
-                auto scoreDirector = ScoreDirector::getInstance();
+                int framePerNotes = GameProtocol::goodRange / frameStartJudge;
                 switch(notes[referenceIndex].color){
                     case 'b' :
                         if(ButtonDirector::getInstance()->isTouchingBlue()){
-                            scoreDirector->updateScore(i);
+                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
                             notes[referenceIndex].isExist = false;
                         }
                         break;
                     case 'r' :
                         if(ButtonDirector::getInstance()->isTouchingRed()){
-                            scoreDirector->updateScore(i);
+                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
                             notes[referenceIndex].isExist = false;
                         }
                         break;
                     case 'p' :
                         if(ButtonDirector::getInstance()->isTouchingRed()&&
                            ButtonDirector::getInstance()->isTouchingBlue()){
-                            scoreDirector->updateScore(i);
+                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
                             notes[referenceIndex].isExist = false;
                         }
                         break;
@@ -287,6 +254,15 @@ void NoteDirector::judgeNote(){
                     notes[referenceIndex].sprite = nullptr;
                 }
             }
+        }
+    }
+    //  good範囲より後ろで存在しているやつは全員ミス
+    int referenceIndex = count - frameStartJudge - 1 ;
+    if(referenceIndex >= 0 && referenceIndex < notes.size()){
+        if(notes[referenceIndex].isExist){
+            scoreDirector->updateScore(GameProtocol::goodRange + 1);
+            //  見えてるけど存在しないやつになる
+            notes[referenceIndex].isExist = false;
         }
     }
 }

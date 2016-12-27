@@ -35,8 +35,8 @@ JudgeDirector *JudgeDirector::getInstance(){
 void JudgeDirector::setJudgeSprite(cocos2d::Sprite *judgeSprite){
     this->judgeSprite = judgeSprite;
     this->judgeSprite->setPositionZ(1);
-    this->judgeSprite->setPosition(GameProtocol::lineHeight,
-                                   Director::getInstance()->getWinSize().height / 4);
+    this->judgeSprite->setPosition(Director::getInstance()->getWinSize().width / 4,
+                                   GameProtocol::lineHeight);
 }
 
 /**

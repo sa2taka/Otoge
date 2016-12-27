@@ -36,6 +36,8 @@ private:
     cocos2d::Label *scoreText;
     
     ScoreDirector();
+    
+    void reset();
 };
 
 #endif /* ScoreDirector_hpp */

@@ -117,8 +117,8 @@ void MainScene::buttonInit(){
 void MainScene::scoreInit(){
     scoreDirector = ScoreDirector::getInstance();
     
-    auto judgeLabel = Label::createWithSystemFont("hoge", "Arial", 32);
-    auto scoreLabel = Label::createWithSystemFont("huga", "Arial", 24);
+    auto judgeLabel = Label::createWithSystemFont("", "Arial", 32);
+    auto scoreLabel = Label::createWithSystemFont("", "Arial", 24);
     
     scoreDirector->setLabel(judgeLabel, scoreLabel);
 
