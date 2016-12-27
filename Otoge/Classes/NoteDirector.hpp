@@ -64,10 +64,11 @@ private:
     NoteDirector();
 
     cocos2d::Sprite *getSpriteFromColor(char color);
-    void setSprite(char color, int location);
+    void setNote(char color, int location);
     cocos2d::Vec2 getVec2FromWidthLocation(int WidthLocation);
     cocos2d::Sequence *getSequence();
     
     void createAndDeleteNote();
+    void judgeNote();
 };
 #endif /* NoteDirector_hpp */

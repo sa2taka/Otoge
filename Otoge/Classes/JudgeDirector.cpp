@@ -53,3 +53,30 @@ void JudgeDirector::moveJudgeLine(Vec2 position){
         judgeSprite->setPosition(moveX, GameProtocol::lineHeight);
     }
 }
+
+/**
+ 判定を行う
+ */
+bool JudgeDirector::judge(int location, char color, float noteWidth){
+    float winWidth = Director::getInstance()->getWinSize().width;
+    float noteRangeWidth = winWidth / 2 - GameProtocol::padding * 2;
+    float noteCenterY = noteRangeWidth / GameProtocol::lineNum * location + GameProtocol::padding;
+    //  判定の左端と右端と中央
+    float judgeLeft   = judgeSprite->getPosition().x - judgeSprite->getContentSize().width / 2;
+    float judgeRight  = judgeSprite->getPosition().x + judgeSprite->getContentSize().width / 2;
+    float judgeCenter = judgeSprite->getPosition().x;
+    //  ノートの左端と右端
+    float noteLeft  = noteCenterY - noteWidth / 2;
+    float noteRight = noteCenterY + noteWidth / 2;
+    
+    //  判定とノートが触れていたら
+    if((judgeLeft   >= noteLeft && judgeLeft   <= noteRight) ||
+       (judgeRight  >= noteLeft && judgeRight  <= noteRight) ||
+       (judgeCenter >= noteLeft && judgeCenter <= noteRight)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
