@@ -10,7 +10,7 @@
 
 const float GameProtocol::lineHeight = 75;
 const float GameProtocol::padding = 30;
-const int GameProtocol::lineNum = 8;
+const int GameProtocol::lineNum = 16;
 const int GameProtocol::notePerBeat = 8;
 const int GameProtocol::greatRange = 4;
 const int GameProtocol::goodRange = 8;
