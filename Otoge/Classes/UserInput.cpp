@@ -7,12 +7,3 @@
 //
 
 #include "UserInput.hpp"
-
-class UserInput{
-public:
-    UserInput *getInstance();
-private:
-    UserInput *instance;
-    
-    UserInput();
-};

@@ -89,18 +89,15 @@ void ButtonDirector::checkTouchButton(){
     for(i = 0;i < touchDirector->getSize();i++){
         if(touchDirector->isTouching(i)){
             auto position = touchDirector->getPosition(i);
-            float winWidth = Director::getInstance()->getWinSize().width;
-            if(position.x >= winWidth / 2){
-                if(position.x >= winWidth / 2 + winWidth / 4){
-                    isTouchRed = true;
-                    pushedRed->setVisible(true);
-                    notPushedRed->setVisible(false);
-                }
-                else{
-                    isTouchBlue = true;
-                    pushedBlue->setVisible(true);
-                    notPushedBlue->setVisible(false);
-                }
+            if(notPushedRed->getBoundingBox().containsPoint(position)){
+                isTouchRed = true;
+                pushedRed->setVisible(true);
+                notPushedRed->setVisible(false);
+            }
+            else if(notPushedBlue->getBoundingBox().containsPoint(position)){
+                isTouchBlue = true;
+                pushedBlue->setVisible(true);
+                notPushedBlue->setVisible(false);
             }
         }
     }
@@ -115,14 +112,11 @@ std::tuple<bool, bool> ButtonDirector::checkStartTouchButton(std::vector<Touch *
     bool isStartTouchRed = false;
     for(i = 0;i < touches.size();i++){
         auto position = touches[i]->getLocation();
-        float winWidth = Director::getInstance()->getWinSize().width;
-        if(position.x >= winWidth / 2){
-            if(position.x >= winWidth / 2 + winWidth / 4){
-                isStartTouchRed = true;
-            }
-            else{
-                isStartTouchBlue = true;
-            }
+        if(notPushedRed->getBoundingBox().containsPoint(position)){
+            isStartTouchRed = true;
+        }
+        else if(notPushedBlue->getBoundingBox().containsPoint(position)){
+            isStartTouchBlue = true;
         }
     }
     return std::tuple<bool, bool>(isStartTouchBlue, isStartTouchRed);

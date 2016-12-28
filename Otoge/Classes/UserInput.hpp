@@ -9,6 +9,13 @@
 #ifndef UserInput_hpp
 #define UserInput_hpp
 
-
+class UserInput{
+public:
+    UserInput *getInstance();
+private:
+    UserInput *instance;
+    
+    UserInput();
+};
 
 #endif /* UserInput_hpp */
