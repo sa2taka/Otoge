@@ -49,10 +49,16 @@ void NoteDirector::setSpeed(float speed){
  */
 void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
                                  cocos2d::SpriteBatchNode* redNote,
-                                 cocos2d::SpriteBatchNode* purpleNote){
+                                 cocos2d::SpriteBatchNode* purpleNote,
+                                 cocos2d::SpriteBatchNode* blueSlide,
+                                 cocos2d::SpriteBatchNode* redSlide,
+                                 cocos2d::SpriteBatchNode* purpleSlide){
     this->blueNote = blueNote;
     this->redNote = redNote;
     this->purpleNote = purpleNote;
+    this->blueSlide = blueSlide;
+    this->redSlide = redSlide;
+    this->purpleSlide = purpleSlide;
 }
 
 /**
@@ -89,9 +95,29 @@ void NoteDirector::loadList(std::string filename){
     count++;
     setNote('r', 1);
     count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('B', 4);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('n', 0);
+    count++;
+    setNote('P', 8);
     isLoadFinish = true;
     bpm = 120;
-    allNotesNum = count;
     ScoreDirector::getInstance()->setNotesNum(allNotesNum);
     count = -GameProtocol::notePerBeat * 4;
     
@@ -106,9 +132,55 @@ void NoteDirector::updateNotes(float delta){
         //  初期状態だと必ず実行される(あんまりにもbpmが低いときを除いて)
         if(timeFromStart - startBeatTime>= 60 / (bpm * GameProtocol::notePerBeat)){
             createAndDeleteNote();
-            judgeNote();
+            judgeSlideNote();
             startBeatTime = timeFromStart;
             count++;
+            
+            //  ノートがgood未満判定確定のときに捨てる処理
+            int referenceIndex = count - getFrameStartJudge() - 1;
+            if(referenceIndex >= 0 && referenceIndex < notes.size()){
+                noteEndProcess(referenceIndex);
+            }
+        }
+    }
+}
+
+/**
+ タッチノートの判定
+ */
+void NoteDirector::judgeTouchNote(bool isTouchBlue, bool isTouchRed){
+    int i;
+    int frameStartJudge = getFrameStartJudge();
+    //  低い方から順に見ていき、一つでも判定があった場合は抜ける
+    for(i = -frameStartJudge;i <= frameStartJudge;i++){
+        int referenceIndex = count + i;
+        if(referenceIndex >= 0 && referenceIndex < notes.size()
+           && notes[referenceIndex].isNote){
+            bool judge = JudgeDirector::getInstance()->judge(notes[referenceIndex].location,
+                                                             notes[referenceIndex].color,
+                                                             getSpriteFromColor(notes[referenceIndex].color)->getContentSize().width);
+            if(judge){
+                switch(notes[referenceIndex].color){
+                    case 'B' :
+                        if(isTouchBlue && !isTouchRed){
+                            notes[referenceIndex].lastJudge = abs(i);
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
+                    case 'R' :
+                        if(!isTouchBlue && isTouchRed){
+                            notes[referenceIndex].lastJudge = abs(i);
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
+                    case 'P' :
+                        if(isTouchBlue && isTouchRed){
+                            notes[referenceIndex].lastJudge = abs(i);
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
+                }
+            }
         }
     }
 }
@@ -122,9 +194,12 @@ void NoteDirector::updateNotes(float delta){
  */
 Sprite *NoteDirector::getSpriteFromColor(char color){
     switch(color){
-        case 'b' : return Sprite::createWithTexture(blueNote->getTexture());
-        case 'r' : return Sprite::createWithTexture(redNote->getTexture());
-        case 'p' : return Sprite::createWithTexture(purpleNote->getTexture());
+        case 'b' : return Sprite::createWithTexture(blueSlide->getTexture());
+        case 'r' : return Sprite::createWithTexture(redSlide->getTexture());
+        case 'p' : return Sprite::createWithTexture(purpleSlide->getTexture());
+        case 'B' : return Sprite::createWithTexture(blueNote->getTexture());
+        case 'R' : return Sprite::createWithTexture(redNote->getTexture());
+        case 'P' : return Sprite::createWithTexture(purpleNote->getTexture());
     }
     return nullptr;
 }
@@ -135,7 +210,8 @@ Sprite *NoteDirector::getSpriteFromColor(char color){
 void NoteDirector::setNote(char color, int location){
     notes.push_back(*new Note());
     
-    if(color != 'b' && color != 'r' && color != 'p'){
+    if(color != 'b' && color != 'r' && color != 'p'
+       && color != 'B' && color != 'R' && color != 'P'){
         notes[count].isNote = false;
     }
     else{
@@ -148,15 +224,25 @@ void NoteDirector::setNote(char color, int location){
         //  親子付け
         switch(color){
             case 'b' :
-                blueNote->addChild(notes[count].sprite);
+                blueSlide->addChild(notes[count].sprite);
                 break;
             case 'r' :
-                redNote->addChild(notes[count].sprite);
+                redSlide->addChild(notes[count].sprite);
                 break;
             case 'p' :
+                purpleSlide->addChild(notes[count].sprite);
+                break;
+            case 'B' :
+                blueNote->addChild(notes[count].sprite);
+                break;
+            case 'R' :
+                redNote->addChild(notes[count].sprite);
+                break;
+            case 'P' :
                 purpleNote->addChild(notes[count].sprite);
                 break;
         }
+        allNotesNum++;
     }
 }
 
@@ -208,61 +294,66 @@ void NoteDirector::createAndDeleteNote(){
 }
 
 /**
- ノートの判定を行う
+ スライドノートの判定を行う
  */
-void NoteDirector::judgeNote(){
+void NoteDirector::judgeSlideNote(){
     int i;
     int frameStartJudge = getFrameStartJudge();
-    auto scoreDirector = ScoreDirector::getInstance();
     for(i = -frameStartJudge;i <= frameStartJudge;i++){
         int referenceIndex = count + i;
-        if(referenceIndex >= 0 && referenceIndex < notes.size()){
-            notes[referenceIndex];
+        if(referenceIndex >= 0 && referenceIndex < notes.size()
+           && notes[referenceIndex].isNote){
             bool judge = JudgeDirector::getInstance()->judge(notes[referenceIndex].location,
                                                              notes[referenceIndex].color,
                                                              getSpriteFromColor(notes[referenceIndex].color)->getContentSize().width);
+            
+            //  FIXME   ここの条件分岐を直す
             if(judge){
-                notes[referenceIndex].lastJudge = abs(i);
-            }
-            //  iが+(判定ラインを超えているノート)かつノートが存在しているかつ判定はgood以上
-            if(i <= 0 && notes[referenceIndex].isExist && notes[referenceIndex].lastJudge != -1){
-                int framePerNotes = GameProtocol::goodRange / frameStartJudge;
                 switch(notes[referenceIndex].color){
                     case 'b' :
-                        if(ButtonDirector::getInstance()->isTouchingBlue()){
-                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
-                            notes[referenceIndex].isExist = false;
+                        if(!ButtonDirector::getInstance()->isTouchingBlue() &&
+                           ButtonDirector::getInstance()->isTouchingRed()){
+                            notes[referenceIndex].lastJudge = abs(i);
                         }
                         break;
                     case 'r' :
-                        if(ButtonDirector::getInstance()->isTouchingRed()){
-                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
-                            notes[referenceIndex].isExist = false;
+                        if(!ButtonDirector::getInstance()->isTouchingBlue() &&
+                           ButtonDirector::getInstance()->isTouchingRed()){
+                            notes[referenceIndex].lastJudge = abs(i);
                         }
                         break;
                     case 'p' :
                         if(ButtonDirector::getInstance()->isTouchingRed()&&
                            ButtonDirector::getInstance()->isTouchingBlue()){
-                            scoreDirector->updateScore(notes[referenceIndex].lastJudge * framePerNotes);
-                            notes[referenceIndex].isExist = false;
+                            notes[referenceIndex].lastJudge = abs(i);
                         }
                         break;
                 }
-                if(!notes[referenceIndex].isExist){
-                    notes[referenceIndex].sprite->stopAllActions();
-                    notes[referenceIndex].sprite->getParent()->removeChild(notes[referenceIndex].sprite);
-                    notes[referenceIndex].sprite = nullptr;
+            }
+            //  iが+(判定ラインを超えているノート)かつノートが存在しているかつ判定はgood以上
+            if(i <= 0 && notes[referenceIndex].isExist && notes[referenceIndex].lastJudge != -1){
+                
+                switch(notes[referenceIndex].color){
+                    case 'b' :
+                        if(!ButtonDirector::getInstance()->isTouchingBlue() &&
+                           ButtonDirector::getInstance()->isTouchingRed()){
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
+                    case 'r' :
+                        if(!ButtonDirector::getInstance()->isTouchingBlue() &&
+                           ButtonDirector::getInstance()->isTouchingRed()){
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
+                    case 'p' :
+                        if(ButtonDirector::getInstance()->isTouchingRed()&&
+                           ButtonDirector::getInstance()->isTouchingBlue()){
+                            noteEndProcess(referenceIndex);
+                        }
+                        break;
                 }
             }
-        }
-    }
-    //  good範囲より後ろで存在しているやつは全員ミス
-    int referenceIndex = count - frameStartJudge - 1 ;
-    if(referenceIndex >= 0 && referenceIndex < notes.size()){
-        if(notes[referenceIndex].isExist){
-            scoreDirector->updateScore(GameProtocol::goodRange + 1);
-            //  見えてるけど存在しないやつになる
-            notes[referenceIndex].isExist = false;
         }
     }
 }
@@ -275,6 +366,22 @@ int NoteDirector::getFrameStartJudge(){
     return (int)((bpm / 60 / 60 * GameProtocol::notePerBeat) * GameProtocol::goodRange);
 }
 
+/**
+ ノーツの終了処理
+ */
+void NoteDirector::noteEndProcess(int index){
+    if(notes[index].isExist && notes[index].isNote){
+        int framePerNotes = GameProtocol::goodRange / getFrameStartJudge();
+        ScoreDirector::getInstance()->updateScore(notes[index].lastJudge * framePerNotes);
+        //  判定がgood以上のときのみノーツを消す処理
+        if(notes[index].lastJudge >= 0){
+            notes[index].sprite->stopAllActions();
+            notes[index].sprite->getParent()->removeChild(notes[index].sprite);
+            notes[index].sprite = nullptr;
+            notes[index].isExist = false;
+        }
+    }
+}
 
 
 

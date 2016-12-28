@@ -35,11 +35,15 @@ public:
     void setSpeed(float speed);
     void setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
                        cocos2d::SpriteBatchNode* redNote,
-                       cocos2d::SpriteBatchNode* purpleNote);
+                       cocos2d::SpriteBatchNode* purpleNote,
+                       cocos2d::SpriteBatchNode* blueSlide,
+                       cocos2d::SpriteBatchNode* redSlide,
+                       cocos2d::SpriteBatchNode* purpleSlide);
     
     void loadList(std::string filename);
     
     void updateNotes(float delta);
+    void judgeTouchNote(bool isTouchBlue, bool isTouchRed);
     
 private:
     static NoteDirector* instance;
@@ -51,6 +55,9 @@ private:
     cocos2d::SpriteBatchNode *blueNote;
     cocos2d::SpriteBatchNode *redNote;
     cocos2d::SpriteBatchNode *purpleNote;
+    cocos2d::SpriteBatchNode *blueSlide;
+    cocos2d::SpriteBatchNode *redSlide;
+    cocos2d::SpriteBatchNode *purpleSlide;
     
     int count;
     float speed;
@@ -71,6 +78,7 @@ private:
     int getFrameStartJudge();
     
     void createAndDeleteNote();
-    void judgeNote();
+    void judgeSlideNote();
+    void noteEndProcess(int index);
 };
 #endif /* NoteDirector_hpp */

@@ -72,7 +72,7 @@ bool ButtonDirector::isTouchingBlue(){
 }
 
 /**
- タッチトラッカーによりボタンがタッチされているかを確認する
+ ボタンがタッチされているかを確認する
  */
 void ButtonDirector::checkTouchButton(){
     int i;
@@ -104,4 +104,26 @@ void ButtonDirector::checkTouchButton(){
             }
         }
     }
+}
+
+/**
+ ボタンがタッチされ始めた瞬間かを確認する
+ */
+std::tuple<bool, bool> ButtonDirector::checkStartTouchButton(std::vector<Touch *> touches){
+    int i;
+    bool isStartTouchBlue = false;
+    bool isStartTouchRed = false;
+    for(i = 0;i < touches.size();i++){
+        auto position = touches[i]->getLocation();
+        float winWidth = Director::getInstance()->getWinSize().width;
+        if(position.x >= winWidth / 2){
+            if(position.x >= winWidth / 2 + winWidth / 4){
+                isStartTouchRed = true;
+            }
+            else{
+                isStartTouchBlue = true;
+            }
+        }
+    }
+    return std::tuple<bool, bool>(isStartTouchBlue, isStartTouchRed);
 }

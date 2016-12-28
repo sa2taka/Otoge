@@ -66,13 +66,24 @@ void MainScene::noteInit(){
     auto blueNote = SpriteBatchNode::create("img/blue_note.png");
     auto redNote = SpriteBatchNode::create("img/red_note.png");
     auto purpleNote = SpriteBatchNode::create("img/purple_note.png");
+    auto blueSlide = SpriteBatchNode::create("img/blue_slide.png");
+    auto redSlide = SpriteBatchNode::create("img/red_slide.png");
+    auto purpleSlide = SpriteBatchNode::create("img/purple_slide.png");
     
-    noteDirector->setNoteSprite(blueNote, redNote, purpleNote);
+    noteDirector->setNoteSprite(blueNote,
+                                redNote,
+                                purpleNote,
+                                blueSlide,
+                                redSlide,
+                                purpleSlide);
     noteDirector->loadList("hogehoge");
     
     this->addChild(blueNote);
     this->addChild(redNote);
     this->addChild(purpleNote);
+    this->addChild(blueSlide);
+    this->addChild(redSlide);
+    this->addChild(purpleSlide);
     
     noteDirector->setSpeed(1);
 }
@@ -130,6 +141,8 @@ void MainScene::onTouchesBegan(const std::vector<Touch*>& touches, Event *event)
     touchDirector->checkTouch(touches, true);
     judgeDirector->moveJudgeLine();
     buttonDirector->checkTouchButton();
+    auto temp = buttonDirector->checkStartTouchButton(touches);
+    noteDirector->judgeTouchNote(std::get<0>(temp), std::get<1>(temp));
 }
 
 void MainScene::onTouchesMoved(const std::vector<Touch*>& touches, Event *event){

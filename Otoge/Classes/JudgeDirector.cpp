@@ -40,7 +40,7 @@ void JudgeDirector::setJudgeSprite(cocos2d::Sprite *judgeSprite){
 }
 
 /**
- 判定を行う
+ ジャッジラインに触れているか判定を行う
  */
 bool JudgeDirector::judge(int location, char color, float noteWidth){
     float winWidth = Director::getInstance()->getWinSize().width;

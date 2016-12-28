@@ -23,6 +23,8 @@ public:
     
     //  ボタンがタッチされているのを確認する
     void checkTouchButton();
+    //  タッチ開始時にボタンが押されたかどうかを確認する
+    std::tuple<bool, bool> checkStartTouchButton(std::vector<cocos2d::Touch *> touches);
     
     bool isTouchingRed();
     bool isTouchingBlue();

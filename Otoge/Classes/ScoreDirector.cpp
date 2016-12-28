@@ -55,10 +55,12 @@ int ScoreDirector::getScore(){
 }
 
 void ScoreDirector::updateScore(int lastJudge){
-    if(abs(lastJudge) > GameProtocol::goodRange){
+    //  0以下のときもgood未満の判定
+    if(lastJudge > GameProtocol::goodRange || lastJudge < 0){
         judgeText->setString("Miss..");
     }
-    else if(abs(lastJudge) > GameProtocol::greatRange){
+    
+    else if(lastJudge > GameProtocol::greatRange){
         score += scorePerNote / 2;
         goodNum++;
         judgeText->setString("good");
