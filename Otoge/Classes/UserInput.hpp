@@ -9,11 +9,26 @@
 #ifndef UserInput_hpp
 #define UserInput_hpp
 
+#include "cocos2d.h"
+
 class UserInput{
+    const static int LEFT = 0;
+    const static int RIGHT = 1;
 public:
-    UserInput *getInstance();
+    static UserInput *getInstance();
+    
+    void setSpeed(int speed);
+    void setArrangement(int arrangement);
+    int getSpeed();
+    int getArrangement();
+    
+    void saveStatus();
 private:
-    UserInput *instance;
+    static UserInput *instance;
+    const std::string fileName = cocos2d::FileUtils::getInstance()->fullPathForFilename("user_status.status");
+    
+    int speed;
+    int arrangement;
     
     UserInput();
 };

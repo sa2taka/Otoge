@@ -11,6 +11,7 @@
 #include "JudgeDirector.hpp"
 #include "ButtonDirector.hpp"
 #include "ScoreDirector.hpp"
+#include "UserInput.hpp"
 
 USING_NS_CC;
 
@@ -35,13 +36,6 @@ NoteDirector::NoteDirector(){
  */
 NoteDirector* NoteDirector::getInstance(){
     return instance;
-}
-
-/**
- 引数をもとに、動きを設定する
- */
-void NoteDirector::setSpeed(float speed){
-    this->speed = speed;
 }
 
 /**
@@ -120,7 +114,7 @@ void NoteDirector::loadList(std::string filename){
     bpm = 120;
     ScoreDirector::getInstance()->setNotesNum(allNotesNum);
     count = -GameProtocol::notePerBeat * 4;
-    
+    speed = 0.5 + 1 / UserInput::getInstance()->getSpeed();
 }
 
 /**

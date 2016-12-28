@@ -7,6 +7,7 @@
 //
 
 #include "MainScene.hpp"
+#include "GameProtocol.hpp"
 
 USING_NS_CC;
 
@@ -84,17 +85,26 @@ void MainScene::noteInit(){
     this->addChild(blueSlide);
     this->addChild(redSlide);
     this->addChild(purpleSlide);
-    
-    noteDirector->setSpeed(1);
 }
 
 void MainScene::judgeInit(){
     judgeDirector = JudgeDirector::getInstance();
     
     auto judgeSprite = Sprite::create("img/judge_line.png");
+    auto judgeLine = DrawNode::create();
     
+    float winWidth = Director::getInstance()->getWinSize().width;
+    float lineStartPoint = 0;
+    judgeLine->drawSegment(Vec2(lineStartPoint, GameProtocol::lineHeight),
+                           Vec2(lineStartPoint +  winWidth / 2, GameProtocol::lineHeight),
+                           1
+                           ,
+                           Color4F::GRAY);
+    
+    //  lineは管理する必要がないため向こうには送らない
     judgeDirector->setJudgeSprite(judgeSprite);
     
+    this->addChild(judgeLine);
     this->addChild(judgeSprite);
 }
 

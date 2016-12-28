@@ -24,11 +24,9 @@ ScoreDirector *ScoreDirector::getInstance(){
 void ScoreDirector::setLabel(Label *judgeText, Label *scoreText){
     judgeText->setPosition(Director::getInstance()->getWinSize().width / 4,
                             Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 4);
-    judgeText->setPositionZ(1);
     scoreText->setAnchorPoint(Vec2(0.0, 1.0));
     scoreText->setPosition(0,
                            Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 8);
-    scoreText->setPositionZ(1);
     
     scoreText->setString("0000000");
     judgeText->setString("");

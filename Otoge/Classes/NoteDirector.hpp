@@ -32,7 +32,6 @@ class NoteDirector{
 public:
     static NoteDirector* getInstance();
     
-    void setSpeed(float speed);
     void setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
                        cocos2d::SpriteBatchNode* redNote,
                        cocos2d::SpriteBatchNode* purpleNote,

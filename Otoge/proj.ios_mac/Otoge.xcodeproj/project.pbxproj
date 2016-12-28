@@ -66,6 +66,7 @@
 		D34956E31E0D83C7004EC582 /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E11E0D83C7004EC582 /* MainScene.cpp */; };
 		D34956E61E0D8565004EC582 /* GameProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E51E0D8565004EC582 /* GameProtocol.cpp */; };
 		D38052291E14019E0034DFC1 /* UserInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D38052271E14019E0034DFC1 /* UserInput.cpp */; };
+		D380522E1E1414E90034DFC1 /* user_status.status in Resources */ = {isa = PBXBuildFile; fileRef = D380522D1E1414E90034DFC1 /* user_status.status */; };
 		D39F5B311E115F5900BB56F6 /* JudgeDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */; };
 		D3A3B2231E125D73009C8461 /* ButtonDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */; };
 		D3A3B2281E12B57E009C8461 /* TouchDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2261E12B57E009C8461 /* TouchDirector.cpp */; };
@@ -179,6 +180,7 @@
 		D34956E51E0D8565004EC582 /* GameProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameProtocol.cpp; sourceTree = "<group>"; };
 		D38052271E14019E0034DFC1 /* UserInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInput.cpp; sourceTree = "<group>"; };
 		D38052281E14019E0034DFC1 /* UserInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UserInput.hpp; sourceTree = "<group>"; };
+		D380522D1E1414E90034DFC1 /* user_status.status */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user_status.status; sourceTree = "<group>"; };
 		D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JudgeDirector.cpp; sourceTree = "<group>"; };
 		D39F5B301E115F5900BB56F6 /* JudgeDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JudgeDirector.hpp; sourceTree = "<group>"; };
 		D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonDirector.cpp; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D380522D1E1414E90034DFC1 /* user_status.status */,
 				D3FB9C5E1E0C2752005D0D49 /* img */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
@@ -509,6 +512,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D380522E1E1414E90034DFC1 /* user_status.status in Resources */,
 				D3FB9C5F1E0C2752005D0D49 /* img in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
