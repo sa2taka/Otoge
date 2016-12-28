@@ -35,7 +35,7 @@ bool MainScene::init()
         return false;
     }
     this->scheduleUpdate();
-    
+
     //  ノート関連の初期化
     noteInit();
     //  判定関連の初期化
@@ -94,15 +94,13 @@ void MainScene::judgeInit(){
     auto judgeLine = DrawNode::create();
     
     float winWidth = Director::getInstance()->getWinSize().width;
-    float lineStartPoint = 0;
-    judgeLine->drawSegment(Vec2(lineStartPoint, GameProtocol::lineHeight),
-                           Vec2(lineStartPoint +  winWidth / 2, GameProtocol::lineHeight),
-                           1
-                           ,
+    judgeLine->drawSegment(Vec2(0, 0),
+                           Vec2(winWidth / 2, 0),
+                           1,
                            Color4F::GRAY);
     
     //  lineは管理する必要がないため向こうには送らない
-    judgeDirector->setJudgeSprite(judgeSprite);
+    judgeDirector->setJudgeSprite(judgeSprite, judgeLine);
     
     this->addChild(judgeLine);
     this->addChild(judgeSprite);

@@ -12,9 +12,10 @@
 #include "cocos2d.h"
 
 class UserInput{
+public:
     const static int LEFT = 0;
     const static int RIGHT = 1;
-public:
+    
     static UserInput *getInstance();
     
     void setSpeed(int speed);

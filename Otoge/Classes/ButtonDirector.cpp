@@ -7,6 +7,7 @@
 //
 
 #include "ButtonDirector.hpp"
+#include "UserInput.hpp"
 
 USING_NS_CC;
 
@@ -40,15 +41,16 @@ void ButtonDirector::setButtonSprite(cocos2d::Sprite *notPushedRed,
     pushedRed->setOpacity(128);
     pushedBlue->setOpacity(128);
     
+    bool isLeft = UserInput::getInstance()->getArrangement() == UserInput::LEFT;
     float winWidth = Director::getInstance()->getWinSize().width;
     notPushedRed->setAnchorPoint(Vec2::ZERO);
-    notPushedRed->setPosition(winWidth / 2 + winWidth / 4, 0);
+    notPushedRed->setPosition(winWidth / 4 + (isLeft ? winWidth / 2 : 0), 0);
     notPushedBlue->setAnchorPoint(Vec2::ZERO);
-    notPushedBlue->setPosition(winWidth/2, 0);
+    notPushedBlue->setPosition(isLeft ? winWidth/2 : 0, 0);
     pushedRed->setAnchorPoint(Vec2::ZERO);
-    pushedRed->setPosition(winWidth / 2 + winWidth / 4, 0);
+    pushedRed->setPosition(winWidth / 4 + (isLeft ? winWidth / 2 : 0), 0);
     pushedBlue->setAnchorPoint(Vec2::ZERO);
-    pushedBlue->setPosition(winWidth/2, 0);
+    pushedBlue->setPosition(isLeft ? winWidth/2 : 0, 0);
     
     pushedRed->setVisible(false);
     pushedBlue->setVisible(false);

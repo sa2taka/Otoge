@@ -244,11 +244,13 @@ void NoteDirector::setNote(char color, int location){
  Locationに応じたノートの初期位置の取得
  */
 Vec2 NoteDirector::getVec2FromWidthLocation(int widthLocation){
+    bool isLeft = UserInput::getInstance()->getArrangement() == UserInput::LEFT;
     float y = Director::getInstance()->getWinSize().height;
     float winWidth = Director::getInstance()->getWinSize().width;
     float noteRangeWidth = winWidth / 2 - GameProtocol::padding * 2;
     float correctLocation = (widthLocation - 1) % GameProtocol::lineNum + 1;
     float x = noteRangeWidth / GameProtocol::lineNum * correctLocation + GameProtocol::padding;
+    x += (isLeft ? 0 : winWidth / 2);
     return Vec2(x, y);
 }
 

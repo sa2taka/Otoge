@@ -8,6 +8,7 @@
 
 #include "ScoreDirector.hpp"
 #include "GameProtocol.hpp"
+#include "UserInput.hpp"
 
 USING_NS_CC;
 
@@ -22,11 +23,13 @@ ScoreDirector *ScoreDirector::getInstance(){
 }
 
 void ScoreDirector::setLabel(Label *judgeText, Label *scoreText){
-    judgeText->setPosition(Director::getInstance()->getWinSize().width / 4,
-                            Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 4);
+    bool isLeft = UserInput::getInstance()->getArrangement() == UserInput::LEFT;
+    auto winSize = Director::getInstance()->getWinSize();
+    judgeText->setPosition(winSize.width / 4 + (isLeft ? 0 : winSize.width / 2),
+                            winSize.height - winSize.height / 4);
     scoreText->setAnchorPoint(Vec2(0.0, 1.0));
-    scoreText->setPosition(0,
-                           Director::getInstance()->getWinSize().height - Director::getInstance()->getWinSize().height / 8);
+    scoreText->setPosition(isLeft ? 0 : winSize.width,
+                           winSize.height - winSize.height / 8);
     
     scoreText->setString("0000000");
     judgeText->setString("");

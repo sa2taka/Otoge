@@ -15,7 +15,7 @@
 class JudgeDirector{
 public:
     static JudgeDirector* getInstance();
-    void setJudgeSprite(cocos2d::Sprite *judgeSprite);
+    void setJudgeSprite(cocos2d::Sprite *judgeSprite, cocos2d::DrawNode *judgeLine);
     
     bool judge(int location, char color, float noteWidth);
     void moveJudgeLine();
@@ -27,6 +27,8 @@ private:
     
     //  コンストラクタ
     JudgeDirector();
+    
+    bool isMovable(cocos2d::Vec2 position);
 };
 
 #endif /* JudgeDirector_hpp */
