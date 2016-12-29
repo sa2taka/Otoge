@@ -67,6 +67,8 @@
 		D34956E61E0D8565004EC582 /* GameProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D34956E51E0D8565004EC582 /* GameProtocol.cpp */; };
 		D38052291E14019E0034DFC1 /* UserInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D38052271E14019E0034DFC1 /* UserInput.cpp */; };
 		D380522E1E1414E90034DFC1 /* user_status.status in Resources */ = {isa = PBXBuildFile; fileRef = D380522D1E1414E90034DFC1 /* user_status.status */; };
+		D38052301E14CC8C0034DFC1 /* sco in Resources */ = {isa = PBXBuildFile; fileRef = D380522F1E14CC8C0034DFC1 /* sco */; };
+		D38052331E14D4910034DFC1 /* StartDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D38052311E14D4910034DFC1 /* StartDirector.cpp */; };
 		D39F5B311E115F5900BB56F6 /* JudgeDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */; };
 		D3A3B2231E125D73009C8461 /* ButtonDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */; };
 		D3A3B2281E12B57E009C8461 /* TouchDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3B2261E12B57E009C8461 /* TouchDirector.cpp */; };
@@ -181,6 +183,9 @@
 		D38052271E14019E0034DFC1 /* UserInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInput.cpp; sourceTree = "<group>"; };
 		D38052281E14019E0034DFC1 /* UserInput.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UserInput.hpp; sourceTree = "<group>"; };
 		D380522D1E1414E90034DFC1 /* user_status.status */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = user_status.status; sourceTree = "<group>"; };
+		D380522F1E14CC8C0034DFC1 /* sco */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sco; sourceTree = "<group>"; };
+		D38052311E14D4910034DFC1 /* StartDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StartDirector.cpp; sourceTree = "<group>"; };
+		D38052321E14D4910034DFC1 /* StartDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StartDirector.hpp; sourceTree = "<group>"; };
 		D39F5B2F1E115F5900BB56F6 /* JudgeDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JudgeDirector.cpp; sourceTree = "<group>"; };
 		D39F5B301E115F5900BB56F6 /* JudgeDirector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = JudgeDirector.hpp; sourceTree = "<group>"; };
 		D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonDirector.cpp; sourceTree = "<group>"; };
@@ -321,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				D380522D1E1414E90034DFC1 /* user_status.status */,
+				D380522F1E14CC8C0034DFC1 /* sco */,
 				D3FB9C5E1E0C2752005D0D49 /* img */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
@@ -343,6 +349,8 @@
 				D3A3B2271E12B57E009C8461 /* TouchDirector.hpp */,
 				D3A3B2211E125D73009C8461 /* ButtonDirector.cpp */,
 				D3A3B2221E125D73009C8461 /* ButtonDirector.hpp */,
+				D38052311E14D4910034DFC1 /* StartDirector.cpp */,
+				D38052321E14D4910034DFC1 /* StartDirector.hpp */,
 				D38052271E14019E0034DFC1 /* UserInput.cpp */,
 				D38052281E14019E0034DFC1 /* UserInput.hpp */,
 				D34956E11E0D83C7004EC582 /* MainScene.cpp */,
@@ -534,6 +542,7 @@
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				D38052301E14CC8C0034DFC1 /* sco in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
@@ -561,6 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				D38052331E14D4910034DFC1 /* StartDirector.cpp in Sources */,
 				D34956D51E0D5AE3004EC582 /* NoteDirector.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				D3A3B22B1E12BE32009C8461 /* ScoreDirector.cpp in Sources */,

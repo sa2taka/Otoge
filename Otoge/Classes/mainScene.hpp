@@ -15,6 +15,7 @@
 #include "ButtonDirector.hpp"
 #include "TouchDirector.hpp"
 #include "ScoreDirector.hpp"
+#include "StartDirector.hpp"
 
 class MainScene : public cocos2d::Layer
 {
@@ -28,16 +29,24 @@ public:
     
 private:
     int count;
+    bool isFirstTouch;
+    
     NoteDirector *noteDirector;
     JudgeDirector *judgeDirector;
     ButtonDirector *buttonDirector;
     TouchDirector *touchDirector;
     ScoreDirector *scoreDirector;
+    StartDirector *startDirector;
+    
+    cocos2d::Label *touchLabel;
+    cocos2d::Sprite *cover;
     
     void noteInit();
     void judgeInit();
     void buttonInit();
     void scoreInit();
+    void startInit();
+    void otherInit();
     
     void update(float delta);
     
@@ -45,6 +54,7 @@ private:
     void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
+    void onLoadFinished();
 };
 
 #endif /* mainScene_hpp */

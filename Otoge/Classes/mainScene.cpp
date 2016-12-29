@@ -8,6 +8,7 @@
 
 #include "MainScene.hpp"
 #include "GameProtocol.hpp"
+#include <functional>
 
 USING_NS_CC;
 
@@ -46,6 +47,12 @@ bool MainScene::init()
     touchDirector = TouchDirector::getInstance();
     //  スコア関連の初期化
     scoreInit();
+    //  ディレクターに関係ない初期化
+    otherInit();
+    //  スタート時の初期化
+    startInit();
+    
+    isFirstTouch = true;
     
     //  コールバックの設定(コールバックと言うかタッチの設定)
     auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -53,12 +60,19 @@ bool MainScene::init()
     listener->onTouchesBegan = CC_CALLBACK_2(MainScene::onTouchesBegan, this);
     listener->onTouchesMoved = CC_CALLBACK_2(MainScene::onTouchesMoved, this);
     listener->onTouchesEnded = CC_CALLBACK_2(MainScene::onTouchesEnded, this);
-    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);        
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    
     return true;
 }
 
 void MainScene::update(float delta){
-    noteDirector->updateNotes(delta);
+    if(noteDirector->isLoadFinish()){
+        noteDirector->updateNotes(delta);
+        if(cover != nullptr){
+            this->removeChild(cover);
+            cover = nullptr;
+        }
+    }
 }
 
 void MainScene::noteInit(){
@@ -77,7 +91,6 @@ void MainScene::noteInit(){
                                 blueSlide,
                                 redSlide,
                                 purpleSlide);
-    noteDirector->loadList("hogehoge");
     
     this->addChild(blueNote);
     this->addChild(redNote);
@@ -99,7 +112,6 @@ void MainScene::judgeInit(){
                            1,
                            Color4F::GRAY);
     
-    //  lineは管理する必要がないため向こうには送らない
     judgeDirector->setJudgeSprite(judgeSprite, judgeLine);
     
     this->addChild(judgeLine);
@@ -145,7 +157,41 @@ void MainScene::scoreInit(){
     this->addChild(scoreLabel);
 }
 
+void MainScene::startInit(){
+    startDirector = StartDirector::getInstance();
+    auto winSize = Director::getInstance()->getWinSize();
+    
+    auto readyLabel = Label::createWithSystemFont("ready...", "Arial", 16);
+    auto progressBar = Sprite::create("img/progress_bar.png");
+    auto progressTimer = ProgressTimer::create(progressBar);
+
+    startDirector->setSprite(progressTimer, readyLabel);
+    
+    this->addChild(progressTimer);
+    this->addChild(readyLabel);
+}
+
+void MainScene::otherInit(){
+    touchLabel = Label::createWithSystemFont("Touch", "Arial", 24);
+    cover = Sprite::create();
+    auto winSize = Director::getInstance()->getWinSize();
+    auto rect = Rect(0, 0, winSize.width, winSize.height);
+    cover->setTextureRect(rect);
+    cover->setColor(Color3B::BLACK);
+    cover->setOpacity(192);
+    touchLabel->setPosition(winSize.width / 2, winSize.height / 2);
+    cover->setPosition(winSize.width / 2, winSize.height / 2);
+    
+    this->addChild(cover);
+    this->addChild(touchLabel);
+}
+
 void MainScene::onTouchesBegan(const std::vector<Touch*>& touches, Event *event){
+    if(isFirstTouch) {
+        isFirstTouch = false;
+        noteDirector->loadList(FileUtils::getInstance()->fullPathForFilename("sco/banbado.sco"));
+        this->removeChild(touchLabel);
+    }
     touchDirector->checkTouch(touches, true);
     judgeDirector->moveJudgeLine();
     buttonDirector->checkTouchButton();

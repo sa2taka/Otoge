@@ -10,6 +10,7 @@
 #define NoteDirector_hpp
 
 #include "cocos2d.h"
+#include <fstream>
 
 class NoteDirector{
     
@@ -39,6 +40,8 @@ public:
                        cocos2d::SpriteBatchNode* redSlide,
                        cocos2d::SpriteBatchNode* purpleSlide);
     
+    bool isLoadFinish();
+    
     void loadList(std::string filename);
     
     void updateNotes(float delta);
@@ -66,7 +69,7 @@ private:
     double startBeatTime;
     double timeFromStart;
     
-    bool isLoadFinish = false;
+    bool isLoadFinished;
     
     NoteDirector();
 

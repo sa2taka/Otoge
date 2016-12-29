@@ -12,6 +12,9 @@
 #include "ButtonDirector.hpp"
 #include "ScoreDirector.hpp"
 #include "UserInput.hpp"
+#include "StartDirector.hpp"
+
+#include <string>
 
 USING_NS_CC;
 
@@ -55,86 +58,66 @@ void NoteDirector::setNoteSprite(cocos2d::SpriteBatchNode* blueNote,
     this->purpleSlide = purpleSlide;
 }
 
+bool NoteDirector::isLoadFinish(){
+    return isLoadFinished;
+}
+
 /**
  譜面の読み込み
  */
 void NoteDirector::loadList(std::string filename){
-    setNote('r', 1);
-    count++;
-    setNote('r', 2);
-    count++;
-    setNote('r', 3);
-    count++;
-    setNote('r', 4);
-    count++;
-    setNote('r', 5);
-    count++;
-    setNote('r', 6);
-    count++;
-    setNote('r', 7);
-    count++;
-    setNote('r', 8);
-    count++;
-    setNote('r', 7);
-    count++;
-    setNote('r', 6);
-    count++;
-    setNote('r', 5);
-    count++;
-    setNote('r', 4);
-    count++;
-    setNote('r', 3);
-    count++;
-    setNote('r', 2);
-    count++;
-    setNote('r', 1);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('B', 4);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('n', 0);
-    count++;
-    setNote('P', 8);
-    isLoadFinish = true;
+    notes.clear();  //  要素の全削除
+    std::ifstream ifs(filename);
+    int lineNum = 0;
+    std::string temp;
+    
+    //  ファイルの行数を数える
+    while(std::getline(ifs, temp)) lineNum++;
+    StartDirector::getInstance()->setMaxNum(lineNum);
+    
+    //  ファイルポインタを先頭に戻す
+    ifs.clear();
+    ifs.seekg(0);
+    std::string reading_line;
+    
+    while(std::getline(ifs, reading_line)){
+        char color;
+        int value;
+        StartDirector::getInstance()->updateBar();
+        
+        std::sscanf(reading_line.c_str(), "%c %d\n",&color, &value);
+        if(reading_line.empty()){
+            continue;
+        }
+        switch(color){
+                
+        }
+    }
+    
     bpm = 120;
     ScoreDirector::getInstance()->setNotesNum(allNotesNum);
     count = -GameProtocol::notePerBeat * 4;
     speed = 0.5 + 1 / UserInput::getInstance()->getSpeed();
+    
+    isLoadFinished = true;
 }
 
 /**
  呼ばれる度にノートを一回分動かす操作
  */
 void NoteDirector::updateNotes(float delta){
-    if(isLoadFinish){
-        timeFromStart += delta;
-        //  初期状態だと必ず実行される(あんまりにもbpmが低いときを除いて)
-        if(timeFromStart - startBeatTime>= 60 / (bpm * GameProtocol::notePerBeat)){
-            createAndDeleteNote();
-            judgeSlideNote();
-            startBeatTime = timeFromStart;
-            count++;
-            
-            //  ノートがgood未満判定確定のときに捨てる処理
-            int referenceIndex = count - getFrameStartJudge() - 1;
-            if(referenceIndex >= 0 && referenceIndex < notes.size()){
-                noteEndProcess(referenceIndex);
-            }
+    timeFromStart += delta;
+    //  初期状態だと必ず実行される(あんまりにもbpmが低いときを除いて)
+    if(timeFromStart - startBeatTime>= 60 / (bpm * GameProtocol::notePerBeat)){
+        createAndDeleteNote();
+        judgeSlideNote();
+        startBeatTime = timeFromStart;
+        count++;
+        
+        //  ノートがgood未満判定確定のときに捨てる処理
+        int referenceIndex = count - getFrameStartJudge() - 1;
+        if(referenceIndex >= 0 && referenceIndex < notes.size()){
+            noteEndProcess(referenceIndex);
         }
     }
 }
