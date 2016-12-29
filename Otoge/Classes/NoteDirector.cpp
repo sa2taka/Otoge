@@ -84,20 +84,18 @@ void NoteDirector::loadList(std::string filename){
         char color;
         int value;
         StartDirector::getInstance()->updateBar();
-        
         std::sscanf(reading_line.c_str(), "%c %d\n",&color, &value);
         if(reading_line.empty()){
             continue;
         }
-        switch(color){
-                
-        }
+        setNote(color, value);
+        count++;
     }
     
     bpm = 120;
     ScoreDirector::getInstance()->setNotesNum(allNotesNum);
-    count = -GameProtocol::notePerBeat * 4;
     speed = 0.5 + 1 / UserInput::getInstance()->getSpeed();
+    count = -GameProtocol::notePerBeat * 4 * speed;
     
     isLoadFinished = true;
 }

@@ -27,7 +27,7 @@ void ScoreDirector::setLabel(Label *judgeText, Label *scoreText){
     auto winSize = Director::getInstance()->getWinSize();
     judgeText->setPosition(winSize.width / 4 + (isLeft ? 0 : winSize.width / 2),
                             winSize.height - winSize.height / 4);
-    scoreText->setAnchorPoint(Vec2(0.0, 1.0));
+    scoreText->setAnchorPoint(Vec2(isLeft ? 0.0 : 1.0 , 1.0));
     scoreText->setPosition(isLeft ? 0 : winSize.width,
                            winSize.height - winSize.height / 8);
     
